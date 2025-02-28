@@ -7,7 +7,7 @@ after doing the use this command : git add .
 
 Describe the nature of the change: git commit -m "Describe your changes here"
             to add the nature of the change 
-=======
->>>>>>> 
+
+
 
 to push the changes to the branch: git push origin master
