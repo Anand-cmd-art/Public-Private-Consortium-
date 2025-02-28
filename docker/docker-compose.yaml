@@ -1,0 +1,18 @@
+services:
+  ethereum:
+    image: ethereum/client-go:stable
+    command: ["--dev"]
+    ports:
+      - "8545:8545"
+  fabric-peer:
+    image: hyperledger/fabric-peer:latest
+    environment:
+      - CORE_PEER_ID=peer0.org1.example.com
+    ports:
+      - "7051:7051"
+  flask-api:
+    build: ./app
+    ports:
+      - "5000:5000"
+
+      
