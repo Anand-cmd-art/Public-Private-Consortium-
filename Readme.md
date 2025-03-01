@@ -6,13 +6,13 @@
    git add .
     
     
-**Describe the nature of the change:**  
-    ```bash
+Describe the nature of the change: 
+    
     git commit -m "Describe your changes here"
         
 
 
-3) #to push the changes to the branch: 
+3) to push the changes to the branch: 
     
     git push origin master
 
