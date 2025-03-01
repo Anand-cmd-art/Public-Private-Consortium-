@@ -4,15 +4,14 @@
   **After making changes, add them to staging:**
    ```bash
    git add .
+    </details>
     
-    
-Describe the nature of the change: 
-    
+    **Describe the nature of the change:** 
+    ```bash
     git commit -m "Describe your changes here"
-        
+        </details>
 
-
-3) to push the changes to the branch: 
+  **to push the changes to the branch:** 
     
     git push origin master
 
