@@ -45,7 +45,7 @@ async function deploy() {
 }
 
 // Async function for verifying users (example logic)
-async function verifyUsers() {
+async functions verifyUsers() {
   try {
     const accounts = await web3Instance.eth.getAccounts();
     console.log("Accounts:", accounts);
@@ -59,10 +59,11 @@ async function verifyUsers() {
 // Export a function for Truffle exec
 module.exports = async function(callback) {
   try {
-    await verifyUsers();
+    await  verifyUsers();
     await deploy();
-    console.log("User verification and contract deployment completed.");
+    console.log("User verification and contract deployment completed successfully.");
     callback();
+    
   } catch (error) {
     callback(error);
   }
