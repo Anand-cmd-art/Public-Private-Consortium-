@@ -1,15 +1,13 @@
 
 ## THIS README.MD IS TO EXPLAIN THE LIST OF COMMANDS AND ITS ORDER. GIT COMMITTING THE CHANGES TO THE REPO: PUBLIC-PRIVATE CONSORTIUM 
 
-  **After making changes, add them to staging:**
+1.  **After making changes, add them to staging:**
    ```bash
    git add .
-    </details>
     
-    **Describe the nature of the change:** 
-    ```bash
-    git commit -m "Describe your changes here"
-        </details>
+    Describe the nature of the change 
+    
+    git commit -m "Describe your changes here" 
 
   **to push the changes to the branch:** 
     

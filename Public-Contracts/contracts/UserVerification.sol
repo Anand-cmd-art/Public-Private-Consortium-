@@ -34,15 +34,17 @@ contract Voter {
     }
 
     // Give rights to vote.
-    function rightsGiven(address voteraddress) public {
+    function rightsGiven(address voteraddress ) public returns( address ) {
         require(msg.sender == chairperson, "Only chairperson can give rights");  // setting the The apex Rights to the chairperson
         require(!_Voter[voteraddress].voted, "You have already voted");  
         require(_Voter[voteraddress].weight == 0, "Voter already has weight");
         _Voter[voteraddress].weight = 1; // increment it by 1 if the require statement fails 
+        require(_Voter[voteraddress].weight==1,"You have rights");
+        return voteraddress;
     }
 
     // Private function for casting a vote or delegating.
-    function CastVote(address votedTO) private {   //t the function to vote someone else 
+    function CastVote(address votedTO) public   {   //t the function to vote someone else 
         VoterInfo storage sender = _Voter[msg.sender];  // _Voter[msg.sender] i used to asign address to vote 
         require(!sender.voted, "You have already voted");  
         require(votedTO != msg.sender, "Self voting isn't allowed"); //  self voting is not allowed 
