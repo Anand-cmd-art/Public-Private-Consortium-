@@ -1,44 +1,26 @@
+## THIS README.MD IS TO EXPLAIN THE LIST OF COMMANDS AND ITS ORDER.
+### GIT COMMITTING THE CHANGES TO THE REPO: PUBLIC-PRIVATE CONSORTIUM
 
-## THIS README.MD IS TO EXPLAIN THE LIST OF COMMANDS AND ITS ORDER. GIT COMMITTING THE CHANGES TO THE REPO: PUBLIC-PRIVATE CONSORTIUM 
+### 1. After making changes, add them to staging:
+```bash
+git add .
 
-1.  **After making changes, add them to staging:**
-   ```bash
-   git add .
+git commit -m "Describe your changes here"
 
-  
-2.  **Describe the nature of the change** 
-    
-    git commit -m "Describe your changes here" 
+git push origin master
 
-  **to push the changes to the branch:** 
-    
-    git push origin master
+git status
 
-4)  **to check the status of the repo:** 
-    
-    git status
-
-5)  **to review the changes and conflicts that are arisng between the local and remote:** 
-        
-     
-    git rebase
+git rebase
 
 
-## Docker Commands 
+DOCKER COMMANDS
 
-anand@Anand:BC
-1)  **go to the app dir in the docekr lib**
-    
-    cd docker/app
 
-2)  **to run the docker container** 
-                 
-    docker compose up -d 
+cd docker/app
 
-3)  **to create the docker container from scratch without using the app cache**
-    
-    docker compose build --no-cache
+docker compose up -d
 
-4)  **to use account with eth for testing** 
-    
-    geth --dev
+docker compose build --no-cache
+
+geth --dev
