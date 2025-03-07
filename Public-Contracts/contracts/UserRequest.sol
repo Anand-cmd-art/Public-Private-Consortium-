@@ -71,90 +71,75 @@ contract UserRequest  {
         // chairperson = userVerification.chairperson(); // this is to get the chairperson address
             
 
-    function ToAcceptUser(address _user, bytes32 memory name) public onlyChairperson() returns (address, bytes31, uint256, uint256, uint256, uint256) {  // this function is to verify the user 
-        require (userVerification.VerifiedPerson(_user), "User is not verified");  
-        Request_.push(Request(   // pushes to the Request struct with vaule,
-            { 
-                incommingReq: msg.sender,
-                user: _user,
-                weight: userVerification.weight(_user),
-                name: name,
-                timestamp: block.timestamp,
-                isVerified: false
-            }
-        ));
+    function ToAcceptUser(address _user, bytes32 name) public onlyChairperson() returns (address, bytes32, bool, uint256, uint256, uint256, uint256) {  // this function is to verify the user 
+            
+        require(userVerification.VerifiedPerson(_user), "User is not verified");  // the User is not verified 
+        
+        Request memory newReq = Request({   // pushes to the Request struct with vaule, Request(main struct) is storing in a new Instence newReq.
+            incommingReq: msg.sender,
+            user: _user,
+            weight: userVerification.weight(_user),
+            name: name,
+            timestamp: block.timestamp,
+            isVerified: false
+        });
+        Request_.push(newReq);  // to push the values of newreq to the Request_ array
+        _Request[_user] = newReq; //  to store the value of the newReq to mapped Request, The _Request is used to store the address value,  in Request_(array) is used used to storea all the references
+                                // this is to prevent data loss and inconstincy
+
         
         _VerificationCount.push(VerificationCount(0,0,0)); // The default value is 0
-        for (uint256 i = 0; i < _VerificationCount.length; i++){  // _Verification.Length gives the number of Members.
-
-            if (Request_[i].isVerified) {
-                Request_[_user].isVerified = true;
-                _VerificationCount[i].verifiedCount += 1;    // this finalizes the accepted request 
-            }   else {
-                _VerificationCount[i].NonverifiedCount += 1;
-            }
-
-            _VerificationCount[i].requestCount += 1;
+        uint256 index = _VerificationCount.length - 1; // use the latest VerificationCount
         
-        for (uint256 i = 0; i< _VerificationCount.length; i++) 
-        {
-            if(Request_[i].isVerified) {  // the balue is True then the name is stored 
-                Request_[_user].name= name;
-
-            }
-            else {
-                revert ("only Verified Users name will be stored");
+        // _Verification.Length gives the number of Members.
+        if (_Request[_user].isVerified) {
+            _VerificationCount[index].verifiedCount += 1;    // this finalizes the accepted request 
+            _Request[_user].isVerified = true;
+        } else {
+            _VerificationCount[index].NonverifiedCount += 1;
+        }
+    
+        _VerificationCount[index].requestCount += 1;
+            
+        for (uint256 i = 0; i < _VerificationCount.length; i++) {  
+            if (_Request[_user].isVerified) {  // the balue is True then the name is stored 
+                _Request[_user].name = name;
+            } else {
+                revert("only Verified Users name will be stored");
             }
         }
-
+    
         // to Store the timestamp of the TO accept the user.
-
-        for (uint256 i = 0; i< _VerificationCount.length; i++) {
-            if(Request_[i].isVerified) {
-                Request_[_user].timestamp = block.timestamp;
-            }
-            else {
-                revert ("only Verified Users timestamp will be stored");
+        for (uint256 i = 0; i < _VerificationCount.length; i++) {
+            if (_Request[_user].isVerified) {
+                _Request[_user].timestamp = block.timestamp;
+            } else {
+                revert("only Verified Users timestamp will be stored");
             }
         }
-
-        return (Request_[_user].user, Request_[_user].name, , Request_[_user].timestamp, _VerificationCount[i].requestCount, _VerificationCount[i].verifiedCount, _VerificationCount[i].NonverifiedCount);
-
-        
-        
-
-    }
-
-    function ToFinalizeCount() public view returns (uint256, uint256, uint256) {  // this is to get the final count of the request
-
     
-
-    }
-
-    function ToCreateRequest(){
-
-    }
-
-    function toGetRequest() {
+        return (
+            _Request[_user].user,                   // this is used to be used in the function ToFinalizeReq, to Destructure the funciton, ToAcceptUser
+            _Request[_user].name, 
+            _Request[_user].isVerified, 
+            _Request[_user].timestamp, 
+            _VerificationCount[index].requestCount, 
+            _VerificationCount[index].verifiedCount, 
+            _VerificationCount[index].NonverifiedCount
+        );
+    } 
+    
+        function ToFinalizeReq(address _user, bytes32 name) public returns(address, bytes32){
         
-    }
+        (address userAddr, bytes32 userName, bool verified, uint256 timestamp, uint256 reqCount, uint256 verifiedCount, uint256 nonVerifiedCount) = ToAcceptUser(_user, name );
+        
 
-    function ToCloseRequest(){
+            
 
-    }
-
-
-
-
-    
-
-
-
-
-
-
-    
-
+        }
 
     
 }
+
+
+    
