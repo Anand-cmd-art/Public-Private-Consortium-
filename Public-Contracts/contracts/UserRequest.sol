@@ -68,8 +68,7 @@ contract UserRequest  {
     
     
     }   
-        // chairperson = userVerification.chairperson(); // this is to get the chairperson address
-            
+
 
     function ToAcceptUser(address _user, bytes32 name) public onlyChairperson() returns (address, bytes32, bool, uint256, uint256, uint256, uint256) {  // this function is to verify the user 
             
@@ -128,15 +127,37 @@ contract UserRequest  {
             _VerificationCount[index].NonverifiedCount
         );
     } 
-    
-        function ToFinalizeReq(address _user, bytes32 name) public returns(address, bytes32){
+
+        // event ToFinalizereq (address user, bytes32 name); 
+        event ReqCount (uint256 requestCount, uint256 verifiedCount, uint256 NonverifiedCount);
+        event StatusOFRequest ( bool verified, uint256 timestamp);
+        
+        function ToFinalizeReq(address _user, bytes32 name) public onlyChairperson() returns(address, bytes32){
         
         (address userAddr, bytes32 userName, bool verified, uint256 timestamp, uint256 reqCount, uint256 verifiedCount, uint256 nonVerifiedCount) = ToAcceptUser(_user, name );
-        
+            address chairperson = userVerification.chairperson();
+           if( msg.sender == chairperson) {
+            
+            emit ReqCount(reqCount, verifiedCount, nonVerifiedCount);
 
+            emit StatusOFRequest(verified, timestamp);
+
+           } else 
+        {
+            revert ("only Chairperson can finalize the request");
+        }
+           
+            // emit ToFinalizereq(userAddr, userName);
+
+            return (userAddr, userName);
+
+            
             
 
         }
+
+        
+
 
     
 }
