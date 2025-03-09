@@ -11,13 +11,14 @@ interface IuserVerification{
 
 contract UserRequest  {
 
-    IuserVerification public userVerification;   // this is to create an instance and use all the instance that is mentioned in the UserVerification.sol
+    IuserVerification public immutable  userVerification;   // this is to create an instance and use all the instance that is mentioned in the UserVerification.sol
 
     struct  Request{ 
         address incommingReq;
         address user;
         uint256 weight;
         bytes32 name;
+        bytes32 federationId;
         uint256 timestamp;
         bool isVerified;  // this is to check whether the user is verified or not
                           // the default vaule is false
@@ -35,7 +36,7 @@ contract UserRequest  {
     }
     
     // address public chairperson;
-    mapping (address => uint256)  addvariable;
+
     
     VerificationCount[] public _VerificationCount;  // this is to store all different verification counts in array
 
@@ -70,7 +71,7 @@ contract UserRequest  {
     }   
 
 
-    function ToAcceptUser(address _user, bytes32 name) public onlyChairperson() returns (address, bytes32, bool, uint256, uint256, uint256, uint256) {  // this function is to verify the user 
+    function ToAcceptUser(address _user, bytes32 name, bytes32 federationId) public onlyChairperson() returns (address, bytes32, bytes32, bool, uint256, uint256, uint256, uint256) {  // this function is to verify the user 
             
         require(userVerification.VerifiedPerson(_user), "User is not verified");  // the User is not verified 
         
@@ -79,6 +80,7 @@ contract UserRequest  {
             user: _user,
             weight: userVerification.weight(_user),
             name: name,
+            federationId: federationId,
             timestamp: block.timestamp,
             isVerified: false
         });
@@ -91,6 +93,8 @@ contract UserRequest  {
         uint256 index = _VerificationCount.length - 1; // use the latest VerificationCount
         
         // _Verification.Length gives the number of Members.
+
+        _Request[_user].isVerified= userVerification.VerifiedPerson(_user);// to set tbhe isVerified flag based on UserVerufucation REsult
         if (_Request[_user].isVerified) {
             _VerificationCount[index].verifiedCount += 1;    // this finalizes the accepted request 
             _Request[_user].isVerified = true;
@@ -116,10 +120,20 @@ contract UserRequest  {
                 revert("only Verified Users timestamp will be stored");
             }
         }
+
+        for(uint256 i= 0; i < _VerificationCount.length; i++) {
+            if(_Request[_user].isVerified) {
+                _Request[_user].federationId = federationId;
+            }
+            else{
+                revert("only Verified Users federationId will be stored");
+            }
+        }
     
         return (
             _Request[_user].user,                   // this is used to be used in the function ToFinalizeReq, to Destructure the funciton, ToAcceptUser
             _Request[_user].name, 
+            _Request[_user].federationId,
             _Request[_user].isVerified, 
             _Request[_user].timestamp, 
             _VerificationCount[index].requestCount, 
@@ -132,9 +146,9 @@ contract UserRequest  {
         event ReqCount (uint256 requestCount, uint256 verifiedCount, uint256 NonverifiedCount);
         event StatusOFRequest ( bool verified, uint256 timestamp);
         
-        function ToFinalizeReq(address _user, bytes32 name) public onlyChairperson() returns(address, bytes32){
+        function ToFinalizeUserCount(address _user, bytes32 name, bytes32 federationId) public onlyChairperson() returns(address, bytes32, bytes32){
         
-        (address userAddr, bytes32 userName, bool verified, uint256 timestamp, uint256 reqCount, uint256 verifiedCount, uint256 nonVerifiedCount) = ToAcceptUser(_user, name );
+        (address userAddr, bytes32 userName, bytes32 FederationID, bool verified, uint256 timestamp, uint256 reqCount, uint256 verifiedCount, uint256 nonVerifiedCount) = ToAcceptUser(_user, name, federationId);
             address chairperson = userVerification.chairperson();
            if( msg.sender == chairperson) {
             
@@ -149,18 +163,33 @@ contract UserRequest  {
            
             // emit ToFinalizereq(userAddr, userName);
 
-            return (userAddr, userName);
+            return (userAddr, userName, FederationID);
 
             
             
 
         }
 
-        
+    function deleteReq(address _user) external onlyChairperson returns (bool) { // to delete any request.
+        require(_Request[_user].user != address(0), "Request does not exist");
+        delete _Request[_user];
+        return true;
+    }
 
-
-    
+    function getReq(address _user) external view returns (address, address, uint256, bytes32, uint256, bool) {  // to get any request.
+        return (
+            _Request[_user].incommingReq,
+            _Request[_user].user,
+            _Request[_user].weight,
+            _Request[_user].name,
+            _Request[_user].timestamp,
+            _Request[_user].isVerified
+        );
+    }
 }
+
+
+
 
 
     
