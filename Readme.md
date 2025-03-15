@@ -4,7 +4,6 @@
 
 ### 1. After making changes, add them to Repo:
 
-#### 2. Docker Commands.
 ```bash
  it add .
 
@@ -15,19 +14,17 @@ git push origin master
 git status
 
 git rebase
+```
 
-####
-cd docker/app
-
+#### 2. Docker Commands.
+```bash
 docker compose up -d
 
 docker compose build --no-cache
 
 geth --dev 
+``` 
 
- 
-
-g
 
 ```bash
 
@@ -35,7 +32,7 @@ FLask COMMAND
 
 go to the App Dir
 
-
+```
  
 
 
