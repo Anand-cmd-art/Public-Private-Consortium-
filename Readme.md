@@ -5,30 +5,36 @@
 ### 1. After making changes, add them to Repo:
 
 ```bash
- it add .
-
+git add .
+```
+```bash
 git commit -m "Describe your changes here"
-
+```
+```bash
 git push origin master
-
+```
+```bash
 git status
-
+```
+```bash
 git rebase
 ```
 
 #### 2. Docker Commands.
 ```bash
 docker compose up -d
-
+```
+```bash
 docker compose build --no-cache
-
+```
+```bash
 geth --dev 
 ``` 
 
 
-```bash
+## FLask COMMAND
 
-FLask COMMAND
+```bash
 
 go to the App Dir
 
