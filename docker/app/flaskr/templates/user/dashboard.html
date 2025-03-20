@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<p>Welcome! Use the forms below to interact with the contracts.</p>
+
+<!-- Check Verification -->
+<h3>Check Verification</h3>
+<form method="POST" action="{{ url_for('verification_bp.check_verification') }}">
+  <label for="user_address">User Address:</label>
+  <input type="text" name="user_address" required>
+  <button type="submit">Check Verification</button>
+</form>
+
+<!-- Make Request -->
+<h3>Make Request</h3>
+<form method="POST" action="{{ url_for('request_bp.make_request') }}">
+  <label for="user_address">User Address:</label>
+  <input type="text" name="user_address" required><br><br>
+  <label for="name">Name:</label>
+  <input type="text" name="name" required><br><br>
+  <label for="federation_id">Federation ID:</label>
+  <input type="text" name="federation_id" required><br><br>
+  <button type="submit">Submit Request</button>
+</form>
+{% endblock %}

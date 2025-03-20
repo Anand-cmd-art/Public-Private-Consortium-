@@ -36,7 +36,7 @@ geth --dev
 
 ```bash
 
-go to the App Dir
+
 
 ```
  

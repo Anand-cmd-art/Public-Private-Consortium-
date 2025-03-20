@@ -1,18 +1,64 @@
+version: "3.8"
+
 services:
+  # Local Ethereum node (Geth in dev mode)
   ethereum:
     image: ethereum/client-go:stable
     command: ["--dev"]
     ports:
       - "8545:8545"
-  fabric-peer:
-    image: hyperledger/fabric-peer:latest
-    environment:
-      - CORE_PEER_ID=peer0.org1.example.com
-    ports:
-      - "7051:7051"
+
+  # (Optional) Separate Flask API container, if you want an API separate from your "web" container
   flask-api:
     build: ./app
+    container_name: flask_api
     ports:
       - "5000:5000"
+    environment:
+      - DATABASE_URL=postgresql://flaskuser:flaskpass@db:5432/flaskdb
+      # Example if you want to connect to local Ethereum
+      # - WEB3_PROVIDER_URL=http://ethereum:8545
+    depends_on:
+      - db
+      - ethereum
+    command: flask run --host=0.0.0.0 --reload
 
-      
+  # PostgreSQL Database
+  db:
+    image: postgres:latest      # <-- Corrected from "postgress:lateset"
+    container_name: my_postgres
+    environment:
+      - POSTGRES_USER=flaskuser
+      - POSTGRES_PASSWORD=flaskpass
+      - POSTGRES_DB=flaskdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Optional separate "web" service if you want a second Flask container or a frontend
+  web:
+    build: .
+    container_name: flask_frontend
+    depends_on:
+      - db
+      - ethereum
+    environment:
+      - DATABASE_URL=postgresql://flaskuser:flaskpass@db:5432/flaskdb
+      # - WEB3_PROVIDER_URL=http://ethereum:8545
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    command: flask run --host=0.0.0.0 --reload
+
+volumes:
+  postgres_data:
+
+# Optional Hyperledger Fabric service (commented out)
+# fabric-peer:
+#   image: hyperledger/fabric-peer:latest
+#   environment:
+#     - CORE_PEER_ID=peer0.org1.example.com
+#   ports:
+#     - "7051:7051"
