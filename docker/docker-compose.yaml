@@ -8,15 +8,16 @@ services:
     ports:
       - "8545:8545"
 
-  # (Optional) Separate Flask API container, if you want an API separate from your "web" container
+  # Flask API service
   flask-api:
-    build: ./app
+    build: 
+      context: ./app               # <-- Docker context is the "app" folder
+      dockerfile: Dockerfile       # <-- Make sure the file is actually named "dockerfile" (lowercase) in /app
     container_name: flask_api
     ports:
       - "5000:5000"
     environment:
       - DATABASE_URL=postgresql://flaskuser:flaskpass@db:5432/flaskdb
-      # Example if you want to connect to local Ethereum
       # - WEB3_PROVIDER_URL=http://ethereum:8545
     depends_on:
       - db
@@ -25,7 +26,7 @@ services:
 
   # PostgreSQL Database
   db:
-    image: postgres:latest      # <-- Corrected from "postgress:lateset"
+    image: postgres:latest
     container_name: my_postgres
     environment:
       - POSTGRES_USER=flaskuser
@@ -37,28 +38,20 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   # Optional separate "web" service if you want a second Flask container or a frontend
-  web:
-    build: .
-    container_name: flask_frontend
-    depends_on:
-      - db
-      - ethereum
-    environment:
-      - DATABASE_URL=postgresql://flaskuser:flaskpass@db:5432/flaskdb
-      # - WEB3_PROVIDER_URL=http://ethereum:8545
-    ports:
-      - "5000:5000"
-    volumes:
-      - .:/app
-    command: flask run --host=0.0.0.0 --reload
+  # web:
+  #   build: .                      # <-- This means Docker looks for a Dockerfile in the same folder as docker-compose.yaml
+  #   container_name: flask_frontend
+  #   depends_on:
+  #     - db
+  #     - ethereum
+  #   environment:
+  #     - DATABASE_URL=postgresql://flaskuser:flaskpass@db:5432/flaskdb
+  #     # - WEB3_PROVIDER_URL=http://ethereum:8545
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - .:/app
+  #   command: flask run --host=0.0.0.0 --reload
 
 volumes:
   postgres_data:
-
-# Optional Hyperledger Fabric service (commented out)
-# fabric-peer:
-#   image: hyperledger/fabric-peer:latest
-#   environment:
-#     - CORE_PEER_ID=peer0.org1.example.com
-#   ports:
-#     - "7051:7051"
