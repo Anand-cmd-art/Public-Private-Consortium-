@@ -46,18 +46,5 @@ function addService( uint256 _price, bool _availablity, address _provider, strin
         qualityScore: _qualityScore,
         timestamp: block.timestamp
     });
-    serviceId.push(id);
-
-
-
-        
-    
-
-
-    
+    serviceId.push(id);   
 }
-
-
-
-
-
