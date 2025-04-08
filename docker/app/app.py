@@ -3,7 +3,7 @@ from flask_migrate import Migrate
 from config import Config
 from db import db, init_db
 from blockchain import BlockchainManager
-from .auth import auth_bp
+from auth import auth_bp
 from user_verification import verification_bp
 from user_request import request_bp
 
@@ -23,10 +23,10 @@ def create_app():
     # Initialize database (creates tables if using db.create_all())
     init_db(app)
 
-    # Initialize Flask-Migrate (for 'flask db' commands)
+   
     migrate.init_app(app, db)
 
-    # Initialize Blockchain manager (web3, contract addresses, etc.)
+    
     bc = BlockchainManager(app)
 
     # Register Blueprints for modular routes
