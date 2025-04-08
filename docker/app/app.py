@@ -3,32 +3,45 @@ from flask_migrate import Migrate
 from config import Config
 from db import db, init_db
 from blockchain import BlockchainManager
-from auth import auth_bp
+from .auth import auth_bp
 from user_verification import verification_bp
 from user_request import request_bp
 
-migrate = Migrate()  # Instantiate the Migrate object
+migrate = Migrate()  # Instantiate Flask-Migrate
 
 def create_app():
-    app = Flask(__name__, static_folder='static', template_folder='templates')
+    # Point to the correct static and templates folders
+    app = Flask(
+        __name__,
+        static_folder='flaskr/static',
+        template_folder='flaskr/templates'
+    )
+
+    # Load config from config.py
     app.config.from_object(Config)
 
-    # Initialize database
-    init_db(app)  # This sets up db.init_app(app) and db.create_all()
+    # Initialize database (creates tables if using db.create_all())
+    init_db(app)
 
-    # Initialize Flask-Migrate
+    # Initialize Flask-Migrate (for 'flask db' commands)
     migrate.init_app(app, db)
 
-    # Initialize Blockchain
+    # Initialize Blockchain manager (web3, contract addresses, etc.)
     bc = BlockchainManager(app)
 
-    # Register Blueprints
+    # Register Blueprints for modular routes
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(verification_bp, url_prefix='/verify')
     app.register_blueprint(request_bp, url_prefix='/request')
 
     @app.route('/')
     def dashboard():
-        return render_template('dashboard.html')
+        # Render the user/dashboard.html template
+        return render_template('user/dashboard.html')
 
     return app
+
+if __name__ == '__main__':
+    # Create the Flask app and run for local dev
+    flask_app = create_app()
+    flask_app.run(host='0.0.0.0', port=5000, debug=True)

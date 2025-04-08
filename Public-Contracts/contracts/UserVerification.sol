@@ -20,6 +20,14 @@ contract UserVerification is IuserVerification {
         bytes32 name;
         uint256 voteCount;
     }
+        function VerifiedPerson(address user) external view override returns (bool) {
+        return _Voter[user].weight == 1;
+    }
+
+ 
+    function weight(address _user) external view override returns (uint256) {
+        return _Voter[_user].weight;
+    }
     
     // The chairperson is the one who can give voting rights.
     address public override chairperson;
@@ -99,19 +107,6 @@ contract UserVerification is IuserVerification {
         winnername_ = _proposal[winningDeligate()].name;
     }
 
-    // --- Functions required by IuserVerification interface ---
 
-    /// @notice Checks if a user is verified (i.e., has been given voting rights).
-    /// @param user The address to check.
-    /// @return True if the user's weight is 1, otherwise false.
-    function VerifiedPerson(address user) external view override returns (bool) {
-        return _Voter[user].weight == 1;
-    }
 
-    /// @notice Returns the voting weight of the specified user.
-    /// @param _user The address to check.
-    /// @return The weight of the user.
-    function weight(address _user) external view override returns (uint256) {
-        return _Voter[_user].weight;
-    }
 }
