@@ -31,14 +31,22 @@ docker compose build --no-cache
 geth --dev 
 ``` 
 
+## To run the Private contracts 
 
-## FLask COMMAND
+### Go the Cloud-Federation-network
+
+```bash 
+cd /home/anand/BC/cloud-federation-network
+```
+
+2. Run the Scripting file 
 
 ```bash
-
-
-
+chmod +x scripts/setup.sh
+./scripts/setup.sh
 ```
+
+
  
 
 

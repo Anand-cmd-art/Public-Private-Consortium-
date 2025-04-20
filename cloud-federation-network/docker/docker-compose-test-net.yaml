@@ -1,12 +1,30 @@
+version: '3.8'
 
 networks:
   fabric_net:
 
+x-peer-common: &peer-common
+  image: hyperledger/fabric-peer:2.5
+  environment:
+    - CORE_PEER_TLS_ENABLED=false
+    - CORE_PEER_GOSSIP_USELEADERELECTION=true
+    - CORE_PEER_GOSSIP_ORGLEADER=false
+    - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+    - CORE_PEER_GOSSIP_IGNORESECURITY=false
+    - CORE_PEER_LOCALMSPID=${PEER_MSP}
+  volumes:
+    - ${PWD}/organizations/peerOrganizations/${ORG_DOMAIN}/peers/${HOSTNAME}/msp:/etc/hyperledger/fabric/msp
+    - ${HOSTNAME}:/var/hyperledger/production
+  networks:
+    - fabric_net
+
 services:
   orderer.example.com:
-    image: hyperledger/fabric-orderer:latest
+    image: hyperledger/fabric-orderer:2.5
+    container_name: orderer.example.com
     environment:
       - ORDERER_GENERAL_LOGLEVEL=info
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
       - ORDERER_GENERAL_LISTENPORT=7050
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/genesis.block
@@ -21,10 +39,11 @@ services:
       - ./crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/var/hyperledger/orderer/msp
     networks:
       - fabric_net
-    container_name: orderer.example.com
 
   peer0.org1.example.com:
-    image: hyperledger/fabric-peer:latest
+    <<: *peer-common
+    container_name: peer0.org1.example.com
+    hostname: peer0.org1.example.com
     environment:
       - CORE_PEER_ID=peer0.org1.example.com
       - CORE_PEER_ADDRESS=peer0.org1.example.com:7051
@@ -33,18 +52,16 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.example.com:7051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
-      - CORE_PEER_LOCALMSPID=Org1MSP
-    volumes:
-      - ./crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp:/etc/hyperledger/fabric/msp
-      - peer0.org1.example.com:/var/hyperledger/production
-    ports:
-      - "7051:7051"
-    networks:
-      - fabric_net
-    container_name: peer0.org1.example.com
+      - PEER_MSP=Org1MSP
+      - ORG_DOMAIN=org1.example.com
+      - HOSTNAME=peer0.org1.example.com
+    depends_on:
+      - orderer.example.com
 
   peer0.org2.example.com:
-    image: hyperledger/fabric-peer:latest
+    <<: *peer-common
+    container_name: peer0.org2.example.com
+    hostname: peer0.org2.example.com
     environment:
       - CORE_PEER_ID=peer0.org2.example.com
       - CORE_PEER_ADDRESS=peer0.org2.example.com:9051
@@ -53,15 +70,11 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.example.com:9051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.example.com:9051
-      - CORE_PEER_LOCALMSPID=Org2MSP
-    volumes:
-      - ./crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp:/etc/hyperledger/fabric/msp
-      - peer0.org2.example.com:/var/hyperledger/production
-    ports:
-      - "9051:9051"
-    networks:
-      - fabric_net
-    container_name: peer0.org2.example.com
+      - PEER_MSP=Org2MSP
+      - ORG_DOMAIN=org2.example.com
+      - HOSTNAME=peer0.org2.example.com
+    depends_on:
+      - orderer.example.com
 
 volumes:
   peer0.org1.example.com:

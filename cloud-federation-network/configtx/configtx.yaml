@@ -1,74 +1,69 @@
----
-Organizations:
-
-  - &OrdererOrg
-    Name: OrdererOrg
-    ID: OrdererMSP
-    MSPDir: ../crypto-config/ordererOrganizations/example.com/msp
-
-  - &Org1
-    Name: Org1MSP
-    ID: Org1MSP
-    MSPDir: ../crypto-config/peerOrganizations/org1.example.com/msp
-    AnchorPeers:
-      - Host: peer0.org1.example.com
-        Port: 7051
-
-  - &Org2
-    Name: Org2MSP
-    ID: Org2MSP
-    MSPDir: ../crypto-config/peerOrganizations/org2.example.com/msp
-    AnchorPeers:
-      - Host: peer0.org2.example.com
-        Port: 9051
-
-Capabilities:
-  Channel: &ChannelCapabilities
-    V2_0: true
-  Orderer: &OrdererCapabilities
-    V2_0: true
-  Application: &ApplicationCapabilities
-    V2_0: true
-
-Application: &ApplicationDefaults
-  Organizations: []
-
-Orderer: &OrdererDefaults
-  OrdererType: solo
-  Addresses:
-    - localhost:7050
-  BatchTimeout: 2s
-  BatchSize:
-    MaxMessageCount: 10
-    AbsoluteMaxBytes: 99 MB
-    PreferredMaxBytes: 512 KB
-  Organizations: []
-
 Profiles:
-  TwoOrgsOrdererGenesis:
-    Orderer:
-      <<: *OrdererDefaults
-      Organizations:
-        - *OrdererOrg
-    Consortiums:
-      SampleConsortium:
-        Organizations:
-          - *Org1
-          - *Org2
+    TwoOrgsOrdererGenesis:
+        Orderer:
+            Addresses:
+                - localhost:7050
+            BatchTimeout: 2s
+            BatchSize:
+                MaxMessageCount: 10
+                AbsoluteMaxBytes: 98 MB
+                PreferredMaxBytes: 512 KB
+            # Kafka:
+            #     ReplicationFactor: 1
+            #     Broker: localhost:9092
+            Policies:
+                Readers:
+                    Type: Signature
+                    Rule: "OR('Org1MSP.member', 'Org2MSP.member')"
+                Writers:
+                    Type: Signature
+                    Rule: "OR('Org1MSP.member', 'Org2MSP.member')"
+                Admins:
+                    Type: Signature
+                    Rule: "OR('Org1MSP.admin', 'Org2MSP.admin')"
+        Consortiums:
+            SampleConsortium:
+                Organizations:
+                    - Name: Org1MSP
+                      ID: Org1MSP
+                      Policies:
+                        Admins:
+                          Type: Signature
+                          Rule: "OR('Org1MSP.admin')"
+                    - Name: Org2MSP
+                      ID: Org2MSP
+                      Policies:
+                        Admins:
+                          Type: Signature
+                          Rule: "OR('Org2MSP.admin')"
 
-  TwoOrgsChannel:
-    Consortium: SampleConsortium
-    Application:
-      <<: *ApplicationDefaults
-      Organizations:
-        - *Org1
-        - *Org2
- 
-
- # there are in total of 3 organizations 
-  # OrdererOrg, Org1 and Org2
-  # OrdererOrg is the orderer organization
-  # Org1 and Org2 are the peer organizations
-  # The orderer organization is not a member of the channel
-  # The orderer organization is only used to create the channel
-  # The orderer organization is not used to endorse transactions
+    TwoOrgsChannel:
+        Consortium: SampleConsortium
+        Application:
+            Organizations:
+                - Name: Org1MSP
+                  ID: Org1MSP
+                  MSPDir: /home/anand/BC/cloud-federation-network/organizations/peerOrganizations/org1.example.com/msp
+                  Policies:
+                    Readers:
+                      Type: Signature
+                      Rule: "OR('Org1MSP.member')"
+                    Writers:
+                      Type: Signature
+                      Rule: "OR('Org1MSP.member')"
+                    Admins:
+                      Type: Signature
+                      Rule: "OR('Org1MSP.admin')"
+                - Name: Org2MSP
+                  ID: Org2MSP
+                  MSPDir: /home/anand/BC/cloud-federation-network/organizations/peerOrganizations/org2.example.com/msp
+                  Policies:
+                    Readers:
+                      Type: Signature
+                      Rule: "OR('Org2MSP.member')"
+                    Writers:
+                      Type: Signature
+                      Rule: "OR('Org2MSP.member')"
+                    Admins:
+                      Type: Signature
+                      Rule: "OR('Org2MSP.admin')"
