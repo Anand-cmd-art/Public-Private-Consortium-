@@ -6,7 +6,11 @@ from blockchain import BlockchainManager
 from auth import auth_bp
 from user_verification import verification_bp
 from user_request import request_bp
-
+import pathlib, sys
+sys.path.append(str(pathlib.Path(__file__).parent))
+from dotenv import load_dotenv
+load_dotenv()             # looks for a .env in the cwd
+INFURA = os.getenv("INFURA_URL_RINKEBY")
 migrate = Migrate()  # Instantiate Flask-Migrate
 
 def create_app():

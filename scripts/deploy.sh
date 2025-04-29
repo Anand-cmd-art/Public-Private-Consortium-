@@ -1,8 +1,4 @@
-#!/bin/bash
-echo " Deploying ETH contracts"
-cd /home/anand/BC/Public-Contracts/contracts
-truffle compile 
-truffle migrate --network development
-cd ..
-echo "deployment of Fabric Contracts"
-
+#!/usr/bin/env bash
+set -e
+source .env
+npx truffle migrate --reset --network rinkeby

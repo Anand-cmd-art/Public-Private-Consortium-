@@ -1,7 +1,32 @@
 {
   "dependencies": {
     "@truffle/hdwallet-provider": "^2.1.15",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.5.0",
+    "truffle": "^5.11.5",
     "web3": "^4.16.0"
-  }
+  },
+  "name": "bc",
+  "version": "1.0.0",
+  "description": "```bash git add . ``` ```bash git commit -m \"Describe your changes here\" ``` ```bash git push origin master ``` ```bash git status ``` ```bash git rebase ```",
+  "main": "index.js",
+  "scripts": {
+    "compile": "truffle compile",
+    "migrate": "truffle migrate --network rinkeby",
+    "deploy": "bash scripts/deploy.sh",
+    "test": "truffle test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anand-cmd-art/Public-Private-Consortium-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Anand-cmd-art/Public-Private-Consortium-/issues"
+  },
+  
+  "homepage": "https://github.com/Anand-cmd-art/Public-Private-Consortium-#readme"
+
 }

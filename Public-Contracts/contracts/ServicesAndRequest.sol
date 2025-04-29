@@ -1,50 +1,71 @@
 // SPDX-License-Identifier: MIT
-
 pragma solidity ^0.8.20;
 
-interface IuserVerification{
-    function chairperson() external view returns (address);
-    function VerifiedPerson(address user) external  view returns (bool);
-}
+import "./IUserVerification.sol";
 
+contract Services {
+    IUserVerification public immutable userVerification;
 
-contract Services{
-     IuserVerification public immutable userVerification;
-
- struct userService{
+    struct ServiceInfo {
         uint256 price;
         bool available;
-        address provider;      
+        address provider;
         string serviceType;
-        uint256 qualityScore;  
+        uint256 qualityScore;  // 0–100
         uint256 timestamp;
- }
+    }
 
-mapping (address => userService) public userServices;
+    // Map each service ID to its info
+    mapping(bytes32 => ServiceInfo) public services;
+    // List of all service IDs
+    bytes32[] public serviceIds;
 
-constructor (address _users) {
-    userVerification= IuserVerification(_users);
-}
+    event ServiceAdded(
+        bytes32 indexed serviceId,
+        address indexed owner,
+        address indexed provider,
+        string serviceType,
+        uint256 price,
+        uint256 qualityScore
+    );
 
-bytes32[] public serviceId;
+    constructor(address verificationContract) {
+        userVerification = IUserVerification(verificationContract);
+    }
 
-function addService( uint256 _price, bool _availablity, address _provider, string memory _serviceType, uint256 _qualityScore) public {
-    require(userVerification.VerifiedPerson(msg.sender), "CSP not verified");
-    require(userVerification.VerifiedPerson(_provider), "Provider not verified");
-    require(_price > 0, "Price must be greater than 0");
-    require(_qualityScore <= 100, "Quality score must be 0-100");
-    // require(userVerification.chairperson() == msg.sender, "Only chairperson can add service");
-    bytes32 id = keccak256(abi.encodePacked(msg.sender, _provider, _serviceType));
-    serviceId.push(id);
-    require(userServices[msg.sender].timestamp == 0, "Service already added");
+    /// @notice Add a new service. Caller and `provider` must both be verified.
+    function addService(
+        uint256 price,
+        bool available,
+        address provider,
+        string calldata serviceType,
+        uint256 qualityScore
+    ) external {
+        require(userVerification.VerifiedPerson(msg.sender), "You are not verified");
+        require(userVerification.VerifiedPerson(provider), "Provider not verified");
+        require(price > 0, "Price must be > 0");
+        require(qualityScore <= 100, "Quality 0-100");
 
-    userServices[id] = userService({
-        price: _price,
-        available: _availablity,
-        provider: _provider,
-        serviceType: _serviceType,
-        qualityScore: _qualityScore,
-        timestamp: block.timestamp
-    });
-    serviceId.push(id);   
+        bytes32 id = keccak256(
+            abi.encodePacked(msg.sender, provider, serviceType, block.timestamp)
+        );
+        require(services[id].timestamp == 0, "Service already exists");
+
+        services[id] = ServiceInfo({
+            price: price,
+            available: available,
+            provider: provider,
+            serviceType: serviceType,
+            qualityScore: qualityScore,
+            timestamp: block.timestamp
+        });
+        serviceIds.push(id);
+
+        emit ServiceAdded(id, msg.sender, provider, serviceType, price, qualityScore);
+    }
+
+    /// @notice Fetch all service IDs
+    function getAllServiceIds() external view returns (bytes32[] memory) {
+        return serviceIds;
+    }
 }

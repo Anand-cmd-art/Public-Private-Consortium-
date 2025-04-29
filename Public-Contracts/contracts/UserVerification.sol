@@ -1,18 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-interface IuserVerification {
-    function chairperson() external view returns (address);  // the master address verifying the users
-    function VerifiedPerson(address users) external view returns (bool); // checks whether a user is verified
-    function weight(address _user) external view returns (uint256); // returns the weight of the user
-}
+import "./IUserVerification.sol";
 
-contract UserVerification is IuserVerification {
-    // Renamed struct to avoid shadowing the contract name.
+contract UserVerification is IUserVerification {
     struct VoterInfo {
-        uint256 weight; // shows whether you have voting rights (1) or not (0)
+        uint256 weight;
         bool voted;
-        address member;
+        address delegate;
         uint256 vote;
     }
 
@@ -20,93 +15,88 @@ contract UserVerification is IuserVerification {
         bytes32 name;
         uint256 voteCount;
     }
-        function VerifiedPerson(address user) external view override returns (bool) {
-        return _Voter[user].weight == 1;
-    }
 
- 
-    function weight(address _user) external view override returns (uint256) {
-        return _Voter[_user].weight;
-    }
-    
-    // The chairperson is the one who can give voting rights.
     address public override chairperson;
-    Proposal[] public _proposal;
-    mapping (address => VoterInfo) public _Voter;
+    mapping(address => VoterInfo) public voters;
+    Proposal[] public proposals;
 
-    // Constructor takes an array of proposal names in bytes32 format.
-    constructor(bytes32[] memory proposalnames) {
-        chairperson = msg.sender; // Set the chairperson.
-        _Voter[chairperson].weight = 1;
+    constructor(bytes32[] memory proposalNames) {
+        chairperson = msg.sender;
+        // Chairperson gets initial weight = 1
+        voters[chairperson].weight = 1;
 
-        // Populate the proposals array.
-        for (uint256 i = 0; i < proposalnames.length; i++) {
-            _proposal.push(Proposal({
-                name: proposalnames[i],
+        // Populate proposals
+        for (uint i = 0; i < proposalNames.length; i++) {
+            proposals.push(Proposal({
+                name: proposalNames[i],
                 voteCount: 0
             }));
         }
     }
 
-    // Give rights to vote.
-    function rightsGiven(address voteraddress) public returns (address) {
-        require(msg.sender == chairperson, "Only chairperson can give rights");
-        require(!_Voter[voteraddress].voted, "You have already voted");
-        require(_Voter[voteraddress].weight == 0, "Voter already has weight");
-        _Voter[voteraddress].weight = 1;
-        require(_Voter[voteraddress].weight == 1, "You have rights");
-        return voteraddress;
+    /// @notice Returns true if user has weight == 1
+    function VerifiedPerson(address user) external view override returns (bool) {
+        return voters[user].weight == 1;
     }
 
-    // Private function for casting a vote or delegating.
-    function CastVote(address votedTO) public {
-        VoterInfo storage sender = _Voter[msg.sender];
-        require(!sender.voted, "You have already voted");
-        require(votedTO != msg.sender, "Self voting isn't allowed");
-        
-        // Follow the delegation chain.
-        while (_Voter[votedTO].member != address(0)) {
-            votedTO = _Voter[votedTO].member;
-            require(votedTO != msg.sender, "Loop delegation is not allowed");
+    function weight(address user) external view override returns (uint256) {
+        return voters[user].weight;
+    }
+
+    /// @notice Give voting/verification rights to `voter`. Only chairperson may call.
+    function grantRights(address voter) external {
+        require(msg.sender == chairperson, "Only chairperson");
+        require(!voters[voter].voted, "Already voted");
+        require(voters[voter].weight == 0, "Already has rights");
+        voters[voter].weight = 1;
+    }
+
+    /// @notice Delegate your vote to `to`
+    function delegate(address to) external {
+        VoterInfo storage sender = voters[msg.sender];
+        require(!sender.voted, "You already voted");
+        require(to != msg.sender, "Cannot self-delegate");
+
+        // Follow delegation chain
+        while (voters[to].delegate != address(0)) {
+            to = voters[to].delegate;
+            require(to != msg.sender, "Loop in delegation");
         }
 
         sender.voted = true;
-        sender.member = votedTO;
-        VoterInfo storage member_ = _Voter[votedTO];
-        if (member_.voted) {
-            _proposal[member_.vote].voteCount += sender.weight;
+        sender.delegate = to;
+        if (voters[to].voted) {
+            // If `to` already voted, directly add to that proposal
+            proposals[voters[to].vote].voteCount += sender.weight;
         } else {
-            member_.weight += sender.weight;
+            // Otherwise add weight to delegate
+            voters[to].weight += sender.weight;
         }
     }
 
-    // Public function to cast a vote.
-    function vote(uint proposal_) public {
-        VoterInfo storage sender_ = _Voter[msg.sender];
-        require(sender_.weight != 0, "You have no right to vote");
-        require(!sender_.voted, "You have already voted");
-
-        sender_.voted = true;
-        sender_.vote = proposal_;
-        _proposal[proposal_].voteCount += sender_.weight;
+    /// @notice Cast your vote to proposal `proposalIndex`
+    function vote(uint proposalIndex) external {
+        VoterInfo storage sender = voters[msg.sender];
+        require(sender.weight != 0, "No right to vote");
+        require(!sender.voted, "Already voted");
+        sender.voted = true;
+        sender.vote = proposalIndex;
+        proposals[proposalIndex].voteCount += sender.weight;
     }
 
-    // Function to determine the winning delegate.
-    function winningDeligate() public view returns (uint256 winingdelegate_) {
-        uint256 winningVoteCount = 0;
-        for (uint256 i = 0; i < _proposal.length; i++) {
-            if (_proposal[i].voteCount > winningVoteCount) {
-                winningVoteCount = _proposal[i].voteCount;
-                winingdelegate_ = i;
+    /// @notice Returns winning proposal index
+    function winningProposal() public view returns (uint256 winningIndex) {
+        uint256 highestCount;
+        for (uint i = 0; i < proposals.length; i++) {
+            if (proposals[i].voteCount > highestCount) {
+                highestCount = proposals[i].voteCount;
+                winningIndex = i;
             }
         }
     }
 
-    // Function to return the winner's name.
-    function winnerName() public view returns (bytes32 winnername_) {
-        winnername_ = _proposal[winningDeligate()].name;
+    /// @notice Returns name of the winning proposal
+    function winnerName() external view returns (bytes32) {
+        return proposals[winningProposal()].name;
     }
-
-
-
 }
