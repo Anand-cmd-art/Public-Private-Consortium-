@@ -39,6 +39,7 @@ echo "✔ Channel tx & anchors in ./channel-artifacts/"
 # 5️⃣ Start CAs, orderer & peers
 docker-compose -f docker/docker-compose-ca.yaml up -d
 docker-compose -f docker/docker-compose-test-net.yaml up -d
+
 echo "Waiting for 10s for containers..."
 sleep 10
 

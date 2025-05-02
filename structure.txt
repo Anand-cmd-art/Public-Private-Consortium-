@@ -1,0 +1,1765 @@
+.
+├── .env
+├── .gitignore
+├── Readme.md
+├── client
+│   └── web3-client
+│       └── package.json
+├── cloud-federation-network
+│   ├── chaincode
+│   │   └── csp-verification
+│   │       └── chaincode.js
+│   ├── configtx
+│   │   └── configtx.yaml
+│   ├── crypto-config
+│   │   └── crypto-config.yaml
+│   ├── docker
+│   │   ├── .env
+│   │   ├── crypto-config
+│   │   │   └── ordererOrganizations
+│   │   │       └── example.com
+│   │   │           └── orderers
+│   │   │               └── orderer.example.com
+│   │   │                   └── msp
+│   │   │                       └── keystore
+│   │   ├── docker-compose-ca.yaml
+│   │   ├── docker-compose-test-net.yaml
+│   │   ├── organizations
+│   │   │   └── peerOrganizations
+│   │   │       └── org1.example.com
+│   │   │           └── peers
+│   │   │               └── peer0.org1.example.com
+│   │   │                   └── msp
+│   │   └── system-genesis-block
+│   │       └── genesis.block
+│   ├── fabric-samples
+│   │   ├── .editorconfig
+│   │   ├── .github
+│   │   │   ├── actions
+│   │   │   │   ├── fsat-setup
+│   │   │   │   │   └── action.yaml
+│   │   │   │   └── test-network-setup
+│   │   │   │       └── action.yaml
+│   │   │   ├── dependabot.yml
+│   │   │   ├── settings.yml
+│   │   │   └── workflows
+│   │   │       ├── lint.yaml
+│   │   │       ├── rest-sample.yaml
+│   │   │       ├── test-fsat.yaml
+│   │   │       ├── test-network-basic.yaml
+│   │   │       ├── test-network-bft-orderer.yaml
+│   │   │       ├── test-network-events.yaml
+│   │   │       ├── test-network-hsm.yaml
+│   │   │       ├── test-network-k8s.yaml
+│   │   │       ├── test-network-ledger.yaml
+│   │   │       ├── test-network-off-chain.yaml
+│   │   │       ├── test-network-private.yaml
+│   │   │       ├── test-network-sbe.yaml
+│   │   │       └── test-network-secured.yaml
+│   │   ├── .gitignore
+│   │   ├── CHANGELOG.md
+│   │   ├── CODEOWNERS
+│   │   ├── CODE_OF_CONDUCT.md
+│   │   ├── CONTRIBUTING.md
+│   │   ├── LICENSE
+│   │   ├── MAINTAINERS.md
+│   │   ├── README.md
+│   │   ├── SECURITY.md
+│   │   ├── asset-transfer-abac
+│   │   │   ├── README.md
+│   │   │   └── chaincode-go
+│   │   │       ├── go.mod
+│   │   │       ├── go.sum
+│   │   │       ├── smart-contract
+│   │   │       │   └── abac.go
+│   │   │       └── smartContract.go
+│   │   ├── asset-transfer-basic
+│   │   │   ├── .gitignore
+│   │   │   ├── README.md
+│   │   │   ├── application-gateway-go
+│   │   │   │   ├── assetTransfer.go
+│   │   │   │   ├── go.mod
+│   │   │   │   └── go.sum
+│   │   │   ├── application-gateway-java
+│   │   │   │   ├── build.gradle
+│   │   │   │   ├── gradle
+│   │   │   │   │   └── wrapper
+│   │   │   │   │       ├── gradle-wrapper.jar
+│   │   │   │   │       └── gradle-wrapper.properties
+│   │   │   │   ├── gradlew
+│   │   │   │   ├── gradlew.bat
+│   │   │   │   ├── pom.xml
+│   │   │   │   ├── settings.gradle
+│   │   │   │   └── src
+│   │   │   │       └── main
+│   │   │   │           └── java
+│   │   │   │               └── App.java
+│   │   │   ├── application-gateway-javascript
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── .npmrc
+│   │   │   │   ├── eslint.config.mjs
+│   │   │   │   ├── package.json
+│   │   │   │   └── src
+│   │   │   │       └── app.js
+│   │   │   ├── application-gateway-typescript
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── .npmrc
+│   │   │   │   ├── eslint.config.mjs
+│   │   │   │   ├── package.json
+│   │   │   │   ├── src
+│   │   │   │   │   └── app.ts
+│   │   │   │   └── tsconfig.json
+│   │   │   ├── chaincode-external
+│   │   │   │   ├── .dockerignore
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── Dockerfile
+│   │   │   │   ├── README.md
+│   │   │   │   ├── assetTransfer.go
+│   │   │   │   ├── chaincode.env
+│   │   │   │   ├── chaincode1.env
+│   │   │   │   ├── chaincode2.env
+│   │   │   │   ├── connection.json
+│   │   │   │   ├── crypto
+│   │   │   │   │   └── .gitkeep
+│   │   │   │   ├── docker-compose-chaincode.yaml
+│   │   │   │   ├── go.mod
+│   │   │   │   ├── go.sum
+│   │   │   │   ├── metadata.json
+│   │   │   │   └── sampleBuilder
+│   │   │   │       └── bin
+│   │   │   │           ├── detect
+│   │   │   │           └── release
+│   │   │   ├── chaincode-go
+│   │   │   │   ├── assetTransfer.go
+│   │   │   │   ├── chaincode
+│   │   │   │   │   ├── mocks
+│   │   │   │   │   │   ├── chaincodestub.go
+│   │   │   │   │   │   ├── statequeryiterator.go
+│   │   │   │   │   │   └── transaction.go
+│   │   │   │   │   ├── smartcontract.go
+│   │   │   │   │   └── smartcontract_test.go
+│   │   │   │   ├── go.mod
+│   │   │   │   └── go.sum
+│   │   │   ├── chaincode-java
+│   │   │   │   ├── .gitattributes
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── Dockerfile
+│   │   │   │   ├── README.md
+│   │   │   │   ├── build.gradle
+│   │   │   │   ├── config
+│   │   │   │   │   └── checkstyle
+│   │   │   │   │       ├── checkstyle.xml
+│   │   │   │   │       └── suppressions.xml
+│   │   │   │   ├── docker
+│   │   │   │   │   └── docker-entrypoint.sh
+│   │   │   │   ├── gradle
+│   │   │   │   │   └── wrapper
+│   │   │   │   │       ├── gradle-wrapper.jar
+│   │   │   │   │       └── gradle-wrapper.properties
+│   │   │   │   ├── gradlew
+│   │   │   │   ├── gradlew.bat
+│   │   │   │   ├── settings.gradle
+│   │   │   │   └── src
+│   │   │   │       ├── main
+│   │   │   │       │   └── java
+│   │   │   │       │       └── org
+│   │   │   │       │           └── hyperledger
+│   │   │   │       │               └── fabric
+│   │   │   │       │                   └── samples
+│   │   │   │       │                       └── assettransfer
+│   │   │   │       │                           ├── Asset.java
+│   │   │   │       │                           └── AssetTransfer.java
+│   │   │   │       └── test
+│   │   │   │           └── java
+│   │   │   │               └── org
+│   │   │   │                   └── hyperledger
+│   │   │   │                       └── fabric
+│   │   │   │                           └── samples
+│   │   │   │                               └── assettransfer
+│   │   │   │                                   ├── AssetTest.java
+│   │   │   │                                   └── AssetTransferTest.java
+│   │   │   ├── chaincode-javascript
+│   │   │   │   ├── .eslintignore
+│   │   │   │   ├── .eslintrc.js
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── index.js
+│   │   │   │   ├── lib
+│   │   │   │   │   └── assetTransfer.js
+│   │   │   │   ├── npm-shrinkwrap.json
+│   │   │   │   ├── package.json
+│   │   │   │   └── test
+│   │   │   │       └── assetTransfer.test.js
+│   │   │   ├── chaincode-typescript
+│   │   │   │   ├── .dockerignore
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── Dockerfile
+│   │   │   │   ├── docker
+│   │   │   │   │   └── docker-entrypoint.sh
+│   │   │   │   ├── eslint.config.mjs
+│   │   │   │   ├── npm-shrinkwrap.json
+│   │   │   │   ├── package.json
+│   │   │   │   ├── src
+│   │   │   │   │   ├── asset.ts
+│   │   │   │   │   ├── assetTransfer.ts
+│   │   │   │   │   └── index.ts
+│   │   │   │   └── tsconfig.json
+│   │   │   ├── rest-api-go
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── README.md
+│   │   │   │   ├── go.mod
+│   │   │   │   ├── go.sum
+│   │   │   │   ├── main.go
+│   │   │   │   └── web
+│   │   │   │       ├── app.go
+│   │   │   │       ├── initialize.go
+│   │   │   │       ├── invoke.go
+│   │   │   │       └── query.go
+│   │   │   └── rest-api-typescript
+│   │   │       ├── .dockerignore
+│   │   │       ├── .editorconfig
+│   │   │       ├── .env.sample
+│   │   │       ├── .eslintrc.json
+│   │   │       ├── .gitignore
+│   │   │       ├── Dockerfile
+│   │   │       ├── README.md
+│   │   │       ├── demo.http
+│   │   │       ├── docker-compose.yaml
+│   │   │       ├── jest.config.ts
+│   │   │       ├── package-lock.json
+│   │   │       ├── package.json
+│   │   │       ├── scripts
+│   │   │       │   └── generateEnv.sh
+│   │   │       ├── src
+│   │   │       │   ├── __tests__
+│   │   │       │   │   └── api.test.ts
+│   │   │       │   ├── assets.router.ts
+│   │   │       │   ├── auth.ts
+│   │   │       │   ├── config.spec.ts
+│   │   │       │   ├── config.ts
+│   │   │       │   ├── errors.spec.ts
+│   │   │       │   ├── errors.ts
+│   │   │       │   ├── fabric.spec.ts
+│   │   │       │   ├── fabric.ts
+│   │   │       │   ├── health.router.ts
+│   │   │       │   ├── index.ts
+│   │   │       │   ├── jobs.router.ts
+│   │   │       │   ├── jobs.spec.ts
+│   │   │       │   ├── jobs.ts
+│   │   │       │   ├── logger.ts
+│   │   │       │   ├── redis.spec.ts
+│   │   │       │   ├── redis.ts
+│   │   │       │   ├── server.ts
+│   │   │       │   └── transactions.router.ts
+│   │   │       └── tsconfig.json
+│   │   ├── asset-transfer-events
+│   │   │   ├── README.md
+│   │   │   ├── application-gateway-go
+│   │   │   │   ├── app.go
+│   │   │   │   ├── connect.go
+│   │   │   │   ├── go.mod
+│   │   │   │   └── go.sum
+│   │   │   ├── application-gateway-java
+│   │   │   │   ├── build.gradle
+│   │   │   │   ├── gradle
+│   │   │   │   │   └── wrapper
+│   │   │   │   │       ├── gradle-wrapper.jar
+│   │   │   │   │       └── gradle-wrapper.properties
+│   │   │   │   ├── gradlew
+│   │   │   │   ├── gradlew.bat
+│   │   │   │   ├── pom.xml
+│   │   │   │   ├── settings.gradle
+│   │   │   │   └── src
+│   │   │   │       └── main
+│   │   │   │           └── java
+│   │   │   │               ├── App.java
+│   │   │   │               └── Connections.java
+│   │   │   ├── application-gateway-typescript
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── .npmrc
+│   │   │   │   ├── eslint.config.mjs
+│   │   │   │   ├── package.json
+│   │   │   │   ├── src
+│   │   │   │   │   ├── app.ts
+│   │   │   │   │   └── connect.ts
+│   │   │   │   └── tsconfig.json
+│   │   │   ├── chaincode-go
+│   │   │   │   ├── assetTransferEvents.go
+│   │   │   │   ├── chaincode
+│   │   │   │   │   └── smartcontract.go
+│   │   │   │   ├── go.mod
+│   │   │   │   └── go.sum
+│   │   │   ├── chaincode-java
+│   │   │   │   ├── build.gradle
+│   │   │   │   ├── config
+│   │   │   │   │   └── checkstyle
+│   │   │   │   │       ├── checkstyle.xml
+│   │   │   │   │       └── suppressions.xml
+│   │   │   │   ├── gradle
+│   │   │   │   │   └── wrapper
+│   │   │   │   │       ├── gradle-wrapper.jar
+│   │   │   │   │       └── gradle-wrapper.properties
+│   │   │   │   ├── gradlew
+│   │   │   │   ├── gradlew.bat
+│   │   │   │   ├── settings.gradle
+│   │   │   │   └── src
+│   │   │   │       └── main
+│   │   │   │           └── java
+│   │   │   │               └── org
+│   │   │   │                   └── hyperledger
+│   │   │   │                       └── fabric
+│   │   │   │                           └── samples
+│   │   │   │                               └── events
+│   │   │   │                                   ├── Asset.java
+│   │   │   │                                   └── AssetTransfer.java
+│   │   │   └── chaincode-javascript
+│   │   │       ├── .eslintignore
+│   │   │       ├── .eslintrc.js
+│   │   │       ├── .gitignore
+│   │   │       ├── index.js
+│   │   │       ├── lib
+│   │   │       │   └── assetTransferEvents.js
+│   │   │       ├── npm-shrinkwrap.json
+│   │   │       ├── package.json
+│   │   │       └── test
+│   │   │           └── assetTransferEvents.test.js
+│   │   ├── asset-transfer-ledger-queries
+│   │   │   ├── application-java
+│   │   │   │   ├── .gitattributes
+│   │   │   │   ├── build.gradle
+│   │   │   │   ├── gradle
+│   │   │   │   │   └── wrapper
+│   │   │   │   │       ├── gradle-wrapper.jar
+│   │   │   │   │       └── gradle-wrapper.properties
+│   │   │   │   ├── gradlew
+│   │   │   │   ├── gradlew.bat
+│   │   │   │   ├── settings.gradle
+│   │   │   │   └── src
+│   │   │   │       └── main
+│   │   │   │           ├── java
+│   │   │   │           │   └── application
+│   │   │   │           │       └── java
+│   │   │   │           │           ├── App.java
+│   │   │   │           │           ├── EnrollAdmin.java
+│   │   │   │           │           └── RegisterUser.java
+│   │   │   │           └── resources
+│   │   │   │               └── log4j.properties
+│   │   │   ├── application-javascript
+│   │   │   │   ├── .eslintignore
+│   │   │   │   ├── .eslintrc.js
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── app.js
+│   │   │   │   └── package.json
+│   │   │   ├── chaincode-go
+│   │   │   │   ├── META-INF
+│   │   │   │   │   └── statedb
+│   │   │   │   │       └── couchdb
+│   │   │   │   │           └── indexes
+│   │   │   │   │               └── indexOwner.json
+│   │   │   │   ├── asset_transfer_ledger_chaincode.go
+│   │   │   │   ├── go.mod
+│   │   │   │   └── go.sum
+│   │   │   ├── chaincode-javascript
+│   │   │   │   ├── .eslintignore
+│   │   │   │   ├── .eslintrc.js
+│   │   │   │   ├── META-INF
+│   │   │   │   │   └── statedb
+│   │   │   │   │       └── couchdb
+│   │   │   │   │           └── indexes
+│   │   │   │   │               └── indexOwner.json
+│   │   │   │   ├── index.js
+│   │   │   │   ├── lib
+│   │   │   │   │   └── asset_transfer_ledger_chaincode.js
+│   │   │   │   ├── npm-shrinkwrap.json
+│   │   │   │   └── package.json
+│   │   │   └── chaincode-typescript
+│   │   │       ├── .gitignore
+│   │   │       ├── META-INF
+│   │   │       │   └── statedb
+│   │   │       │       └── couchdb
+│   │   │       │           └── indexes
+│   │   │       │               └── indexOwner.json
+│   │   │       ├── eslint.config.mjs
+│   │   │       ├── npm-shrinkwrap.json
+│   │   │       ├── package.json
+│   │   │       ├── src
+│   │   │       │   ├── asset.ts
+│   │   │       │   ├── assetTransferLedger.ts
+│   │   │       │   └── index.ts
+│   │   │       └── tsconfig.json
+│   │   ├── asset-transfer-private-data
+│   │   │   ├── README.md
+│   │   │   ├── application-gateway-go
+│   │   │   │   ├── app.go
+│   │   │   │   ├── connect.go
+│   │   │   │   ├── go.mod
+│   │   │   │   └── go.sum
+│   │   │   ├── application-gateway-typescript
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── .npmrc
+│   │   │   │   ├── README.md
+│   │   │   │   ├── eslint.config.mjs
+│   │   │   │   ├── package.json
+│   │   │   │   ├── src
+│   │   │   │   │   ├── app.ts
+│   │   │   │   │   └── connect.ts
+│   │   │   │   └── tsconfig.json
+│   │   │   ├── chaincode-go
+│   │   │   │   ├── META-INF
+│   │   │   │   │   └── statedb
+│   │   │   │   │       └── couchdb
+│   │   │   │   │           └── collections
+│   │   │   │   │               └── assetCollection
+│   │   │   │   │                   └── indexes
+│   │   │   │   │                       └── indexOwner.json
+│   │   │   │   ├── README.md
+│   │   │   │   ├── chaincode
+│   │   │   │   │   ├── asset_queries.go
+│   │   │   │   │   ├── asset_queries_test.go
+│   │   │   │   │   ├── asset_transfer.go
+│   │   │   │   │   ├── asset_transfer_test.go
+│   │   │   │   │   └── mocks
+│   │   │   │   │       ├── chaincodestub.go
+│   │   │   │   │       ├── clientIdentity.go
+│   │   │   │   │       ├── statequeryiterator.go
+│   │   │   │   │       └── transaction.go
+│   │   │   │   ├── collections_config.json
+│   │   │   │   ├── go.mod
+│   │   │   │   ├── go.sum
+│   │   │   │   └── main.go
+│   │   │   ├── chaincode-java
+│   │   │   │   ├── .gitattributes
+│   │   │   │   ├── META-INF
+│   │   │   │   │   └── statedb
+│   │   │   │   │       └── couchdb
+│   │   │   │   │           └── collections
+│   │   │   │   │               └── assetCollection
+│   │   │   │   │                   └── indexes
+│   │   │   │   │                       └── indexOwner.json
+│   │   │   │   ├── build.gradle
+│   │   │   │   ├── collections_config.json
+│   │   │   │   ├── config
+│   │   │   │   │   └── checkstyle
+│   │   │   │   │       ├── checkstyle.xml
+│   │   │   │   │       └── suppressions.xml
+│   │   │   │   ├── gradle
+│   │   │   │   │   └── wrapper
+│   │   │   │   │       ├── gradle-wrapper.jar
+│   │   │   │   │       └── gradle-wrapper.properties
+│   │   │   │   ├── gradlew
+│   │   │   │   ├── gradlew.bat
+│   │   │   │   ├── settings.gradle
+│   │   │   │   └── src
+│   │   │   │       ├── main
+│   │   │   │       │   └── java
+│   │   │   │       │       └── org
+│   │   │   │       │           └── hyperledger
+│   │   │   │       │               └── fabric
+│   │   │   │       │                   └── samples
+│   │   │   │       │                       └── privatedata
+│   │   │   │       │                           ├── Asset.java
+│   │   │   │       │                           ├── AssetPrivateDetails.java
+│   │   │   │       │                           ├── AssetTransfer.java
+│   │   │   │       │                           └── TransferAgreement.java
+│   │   │   │       └── test
+│   │   │   │           ├── java
+│   │   │   │           │   └── org
+│   │   │   │           │       └── hyperledger
+│   │   │   │           │           └── fabric
+│   │   │   │           │               └── samples
+│   │   │   │           │                   └── privatedata
+│   │   │   │           │                       └── AssetTransferTest.java
+│   │   │   │           └── resources
+│   │   │   │               └── mockito-extensions
+│   │   │   │                   └── org.mockito.plugins.MockMaker
+│   │   │   └── chaincode-typescript
+│   │   │       ├── .dockerignore
+│   │   │       ├── .gitignore
+│   │   │       ├── Dockerfile
+│   │   │       ├── Readme.md
+│   │   │       ├── collections_config.json
+│   │   │       ├── docker
+│   │   │       │   └── docker-entrypoint.sh
+│   │   │       ├── eslint.config.mjs
+│   │   │       ├── npm-shrinkwrap.json
+│   │   │       ├── package.json
+│   │   │       ├── src
+│   │   │       │   ├── asset.ts
+│   │   │       │   ├── assetTransfer.ts
+│   │   │       │   ├── assetTransferDetails.ts
+│   │   │       │   ├── assetTransferTransientInput.ts
+│   │   │       │   ├── index.ts
+│   │   │       │   ├── transferAgreement.ts
+│   │   │       │   └── utils.ts
+│   │   │       └── tsconfig.json
+│   │   ├── asset-transfer-sbe
+│   │   │   ├── README.md
+│   │   │   ├── application-javascript
+│   │   │   │   ├── .eslintignore
+│   │   │   │   ├── .eslintrc.js
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── app.js
+│   │   │   │   └── package.json
+│   │   │   ├── chaincode-java
+│   │   │   │   ├── .gitattributes
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── build.gradle
+│   │   │   │   ├── config
+│   │   │   │   │   └── checkstyle
+│   │   │   │   │       ├── checkstyle.xml
+│   │   │   │   │       └── suppressions.xml
+│   │   │   │   ├── gradle
+│   │   │   │   │   └── wrapper
+│   │   │   │   │       ├── gradle-wrapper.jar
+│   │   │   │   │       └── gradle-wrapper.properties
+│   │   │   │   ├── gradlew
+│   │   │   │   ├── gradlew.bat
+│   │   │   │   ├── settings.gradle
+│   │   │   │   └── src
+│   │   │   │       └── main
+│   │   │   │           └── java
+│   │   │   │               └── org
+│   │   │   │                   └── hyperledger
+│   │   │   │                       └── fabric
+│   │   │   │                           └── samples
+│   │   │   │                               └── sbe
+│   │   │   │                                   ├── Asset.java
+│   │   │   │                                   └── AssetContract.java
+│   │   │   └── chaincode-typescript
+│   │   │       ├── .gitignore
+│   │   │       ├── eslint.config.mjs
+│   │   │       ├── npm-shrinkwrap.json
+│   │   │       ├── package.json
+│   │   │       ├── src
+│   │   │       │   ├── asset.ts
+│   │   │       │   ├── assetContract.ts
+│   │   │       │   └── index.ts
+│   │   │       └── tsconfig.json
+│   │   ├── asset-transfer-secured-agreement
+│   │   │   ├── README.md
+│   │   │   ├── application-gateway-typescript
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── eslint.config.mjs
+│   │   │   │   ├── package.json
+│   │   │   │   ├── src
+│   │   │   │   │   ├── app.ts
+│   │   │   │   │   ├── connect.ts
+│   │   │   │   │   ├── contractWrapper.ts
+│   │   │   │   │   └── utils.ts
+│   │   │   │   └── tsconfig.json
+│   │   │   └── chaincode-go
+│   │   │       ├── README.md
+│   │   │       ├── asset_transfer.go
+│   │   │       ├── asset_transfer_queries.go
+│   │   │       ├── go.mod
+│   │   │       └── go.sum
+│   │   ├── auction-dutch
+│   │   │   ├── README.md
+│   │   │   ├── application-javascript
+│   │   │   │   ├── .eslintignore
+│   │   │   │   ├── .eslintrc.js
+│   │   │   │   ├── bid.js
+│   │   │   │   ├── closeAuction.js
+│   │   │   │   ├── createAuction.js
+│   │   │   │   ├── endAuction.js
+│   │   │   │   ├── endAuctionwithAuditor.js
+│   │   │   │   ├── enrollAdmin.js
+│   │   │   │   ├── package.json
+│   │   │   │   ├── queryAuction.js
+│   │   │   │   ├── queryBid.js
+│   │   │   │   ├── registerEnrollUser.js
+│   │   │   │   ├── revealBid.js
+│   │   │   │   └── submitBid.js
+│   │   │   ├── chaincode-go
+│   │   │   │   ├── go.mod
+│   │   │   │   ├── go.sum
+│   │   │   │   ├── smart-contract
+│   │   │   │   │   ├── auction.go
+│   │   │   │   │   ├── auctionQueries.go
+│   │   │   │   │   └── utils.go
+│   │   │   │   └── smartContract.go
+│   │   │   └── chaincode-go-auditor
+│   │   │       ├── go.mod
+│   │   │       ├── go.sum
+│   │   │       ├── smart-contract
+│   │   │       │   ├── auction.go
+│   │   │       │   ├── auctionQueries.go
+│   │   │       │   └── utils.go
+│   │   │       └── smartContract.go
+│   │   ├── auction-simple
+│   │   │   ├── README.md
+│   │   │   ├── application-javascript
+│   │   │   │   ├── .eslintignore
+│   │   │   │   ├── .eslintrc.js
+│   │   │   │   ├── bid.js
+│   │   │   │   ├── closeAuction.js
+│   │   │   │   ├── createAuction.js
+│   │   │   │   ├── endAuction.js
+│   │   │   │   ├── enrollAdmin.js
+│   │   │   │   ├── package.json
+│   │   │   │   ├── queryAuction.js
+│   │   │   │   ├── queryBid.js
+│   │   │   │   ├── registerEnrollUser.js
+│   │   │   │   ├── revealBid.js
+│   │   │   │   └── submitBid.js
+│   │   │   └── chaincode-go
+│   │   │       ├── go.mod
+│   │   │       ├── go.sum
+│   │   │       ├── smart-contract
+│   │   │       │   ├── auction.go
+│   │   │       │   ├── auctionQueries.go
+│   │   │       │   └── utils.go
+│   │   │       └── smartContract.go
+│   │   ├── bin
+│   │   │   ├── configtxgen
+│   │   │   ├── configtxlator
+│   │   │   ├── cryptogen
+│   │   │   ├── discover
+│   │   │   ├── fabric-ca-client
+│   │   │   ├── fabric-ca-server
+│   │   │   ├── ledgerutil
+│   │   │   ├── orderer
+│   │   │   ├── osnadmin
+│   │   │   └── peer
+│   │   ├── builders
+│   │   │   └── ccaas
+│   │   │       └── bin
+│   │   │           ├── detect
+│   │   │           └── release
+│   │   ├── ci
+│   │   │   └── scripts
+│   │   │       ├── lint-go.sh
+│   │   │       ├── lint-java.sh
+│   │   │       ├── lint-javascript.sh
+│   │   │       ├── lint-shell.sh
+│   │   │       ├── lint-typescript.sh
+│   │   │       ├── lint.sh
+│   │   │       ├── run-k8s-test-network-basic.sh
+│   │   │       ├── run-test-network-basic.sh
+│   │   │       ├── run-test-network-events.sh
+│   │   │       ├── run-test-network-hsm.sh
+│   │   │       ├── run-test-network-ledger.sh
+│   │   │       ├── run-test-network-off-chain.sh
+│   │   │       ├── run-test-network-private.sh
+│   │   │       ├── run-test-network-sbe.sh
+│   │   │       └── run-test-network-secured.sh
+│   │   ├── config
+│   │   │   ├── configtx.yaml
+│   │   │   ├── core.yaml
+│   │   │   └── orderer.yaml
+│   │   ├── full-stack-asset-transfer-guide
+│   │   │   ├── .gitignore
+│   │   │   ├── LICENSE
+│   │   │   ├── README.md
+│   │   │   ├── SETUP.md
+│   │   │   ├── applications
+│   │   │   │   ├── conga-cards
+│   │   │   │   │   ├── .eslintrc.js
+│   │   │   │   │   ├── .gitignore
+│   │   │   │   │   ├── .npmrc
+│   │   │   │   │   ├── README.md
+│   │   │   │   │   ├── assets
+│   │   │   │   │   │   ├── appleplectic.png
+│   │   │   │   │   │   ├── bananomatopoeia.png
+│   │   │   │   │   │   ├── block-norris.png
+│   │   │   │   │   │   ├── blockbert.png
+│   │   │   │   │   │   ├── count-blockula.png
+│   │   │   │   │   │   ├── darth-conga.png
+│   │   │   │   │   │   ├── no-pun-intended.png
+│   │   │   │   │   │   └── template.png
+│   │   │   │   │   ├── hooks
+│   │   │   │   │   │   └── captain-hook.json
+│   │   │   │   │   ├── images
+│   │   │   │   │   │   └── interaction.png
+│   │   │   │   │   ├── package.json
+│   │   │   │   │   ├── src
+│   │   │   │   │   │   ├── app.ts
+│   │   │   │   │   │   ├── commands
+│   │   │   │   │   │   │   ├── create.ts
+│   │   │   │   │   │   │   ├── delete.ts
+│   │   │   │   │   │   │   ├── discord.ts
+│   │   │   │   │   │   │   ├── getAllAssets.ts
+│   │   │   │   │   │   │   ├── index.ts
+│   │   │   │   │   │   │   ├── read.ts
+│   │   │   │   │   │   │   └── transfer.ts
+│   │   │   │   │   │   ├── config.ts
+│   │   │   │   │   │   ├── connect.ts
+│   │   │   │   │   │   ├── contract.ts
+│   │   │   │   │   │   ├── expectedError.ts
+│   │   │   │   │   │   └── utils.ts
+│   │   │   │   │   └── tsconfig.json
+│   │   │   │   ├── frontend
+│   │   │   │   │   ├── .browserslistrc
+│   │   │   │   │   ├── .editorconfig
+│   │   │   │   │   ├── .gitignore
+│   │   │   │   │   ├── Dockerfile
+│   │   │   │   │   ├── README.md
+│   │   │   │   │   ├── angular.json
+│   │   │   │   │   ├── karma.conf.js
+│   │   │   │   │   ├── package.json
+│   │   │   │   │   ├── screenshots
+│   │   │   │   │   │   ├── Create.png
+│   │   │   │   │   │   └── list.png
+│   │   │   │   │   ├── src
+│   │   │   │   │   │   ├── app
+│   │   │   │   │   │   │   ├── app-routing.module.ts
+│   │   │   │   │   │   │   ├── app.component.html
+│   │   │   │   │   │   │   ├── app.component.scss
+│   │   │   │   │   │   │   ├── app.component.spec.ts
+│   │   │   │   │   │   │   ├── app.component.ts
+│   │   │   │   │   │   │   ├── app.module.ts
+│   │   │   │   │   │   │   ├── asset-dialog
+│   │   │   │   │   │   │   │   ├── asset-dialog.component.html
+│   │   │   │   │   │   │   │   ├── asset-dialog.component.scss
+│   │   │   │   │   │   │   │   ├── asset-dialog.component.spec.ts
+│   │   │   │   │   │   │   │   └── asset-dialog.component.ts
+│   │   │   │   │   │   │   └── urls.ts
+│   │   │   │   │   │   ├── assets
+│   │   │   │   │   │   │   └── .gitkeep
+│   │   │   │   │   │   ├── environments
+│   │   │   │   │   │   │   ├── environment.prod.ts
+│   │   │   │   │   │   │   └── environment.ts
+│   │   │   │   │   │   ├── favicon.ico
+│   │   │   │   │   │   ├── index.html
+│   │   │   │   │   │   ├── main.ts
+│   │   │   │   │   │   ├── polyfills.ts
+│   │   │   │   │   │   ├── styles.scss
+│   │   │   │   │   │   └── test.ts
+│   │   │   │   │   ├── tsconfig.app.json
+│   │   │   │   │   ├── tsconfig.json
+│   │   │   │   │   └── tsconfig.spec.json
+│   │   │   │   ├── ping-chaincode
+│   │   │   │   │   ├── .gitignore
+│   │   │   │   │   ├── app.env
+│   │   │   │   │   ├── package.json
+│   │   │   │   │   ├── src
+│   │   │   │   │   │   ├── app.ts
+│   │   │   │   │   │   ├── fabric-connection-profile.ts
+│   │   │   │   │   │   └── jsonid-adapter.ts
+│   │   │   │   │   └── tsconfig.json
+│   │   │   │   ├── rest-api
+│   │   │   │   │   ├── .gitignore
+│   │   │   │   │   ├── Dockerfile
+│   │   │   │   │   ├── LICENSE
+│   │   │   │   │   ├── README.md
+│   │   │   │   │   ├── asset-transfer.postman_collection.json
+│   │   │   │   │   ├── deployment.yaml
+│   │   │   │   │   ├── package.json
+│   │   │   │   │   ├── renovate.json
+│   │   │   │   │   ├── src
+│   │   │   │   │   │   ├── app.ts
+│   │   │   │   │   │   ├── assets.router.ts
+│   │   │   │   │   │   ├── connection.ts
+│   │   │   │   │   │   └── server.ts
+│   │   │   │   │   └── tsconfig.json
+│   │   │   │   └── trader-typescript
+│   │   │   │       ├── .gitignore
+│   │   │   │       ├── .npmrc
+│   │   │   │       ├── README.md
+│   │   │   │       ├── eslint.config.mjs
+│   │   │   │       ├── package.json
+│   │   │   │       ├── src
+│   │   │   │       │   ├── app.ts
+│   │   │   │       │   ├── commands
+│   │   │   │       │   │   ├── create.ts
+│   │   │   │       │   │   ├── delete.ts
+│   │   │   │       │   │   ├── getAllAssets.ts
+│   │   │   │       │   │   ├── index.ts
+│   │   │   │       │   │   ├── listen.ts
+│   │   │   │       │   │   ├── read.ts
+│   │   │   │       │   │   ├── transact.ts
+│   │   │   │       │   │   └── transfer.ts
+│   │   │   │       │   ├── config.ts
+│   │   │   │       │   ├── connect.ts
+│   │   │   │       │   ├── contract.ts
+│   │   │   │       │   ├── expectedError.ts
+│   │   │   │       │   └── utils.ts
+│   │   │   │       └── tsconfig.json
+│   │   │   ├── check.sh
+│   │   │   ├── checks
+│   │   │   │   ├── check-chaincode.sh
+│   │   │   │   ├── check-kube.sh
+│   │   │   │   ├── check-network.sh
+│   │   │   │   └── utils.sh
+│   │   │   ├── contracts
+│   │   │   │   └── asset-transfer-typescript
+│   │   │   │       ├── .gitignore
+│   │   │   │       ├── .npmrc
+│   │   │   │       ├── Dockerfile
+│   │   │   │       ├── asset-transfer-chaincode-vars.yml
+│   │   │   │       ├── docker
+│   │   │   │       │   └── docker-entrypoint.sh
+│   │   │   │       ├── eslint.config.mjs
+│   │   │   │       ├── npm-shrinkwrap.json
+│   │   │   │       ├── package.json
+│   │   │   │       ├── src
+│   │   │   │       │   ├── asset.ts
+│   │   │   │       │   ├── assetTransfer.ts
+│   │   │   │       │   ├── index.ts
+│   │   │   │       │   └── untyped.d.ts
+│   │   │   │       └── tsconfig.json
+│   │   │   ├── docs
+│   │   │   │   ├── ApplicationDev
+│   │   │   │   │   ├── 01-FabricGateway-ES.md
+│   │   │   │   │   ├── 01-FabricGateway.md
+│   │   │   │   │   ├── 02-Exercise-RunApplication-ES.md
+│   │   │   │   │   ├── 02-Exercise-RunApplication.md
+│   │   │   │   │   ├── 03-ApplicationOverview-ES.md
+│   │   │   │   │   ├── 03-ApplicationOverview.md
+│   │   │   │   │   ├── 04-Exercise-AssetTransfer-ES.md
+│   │   │   │   │   ├── 04-Exercise-AssetTransfer.md
+│   │   │   │   │   ├── 05-ChaincodeEvents-ES.md
+│   │   │   │   │   ├── 05-ChaincodeEvents.md
+│   │   │   │   │   ├── 06-Exercise-ChaincodeEvents-ES.md
+│   │   │   │   │   ├── 06-Exercise-ChaincodeEvents.md
+│   │   │   │   │   └── README.md
+│   │   │   │   ├── CloudReady
+│   │   │   │   │   ├── 00-setup-zh.md
+│   │   │   │   │   ├── 00-setup.md
+│   │   │   │   │   ├── 10-kube-zh.md
+│   │   │   │   │   ├── 10-kube.md
+│   │   │   │   │   ├── 11-kube-multipass.md
+│   │   │   │   │   ├── 12-kube-ec2-vm.md
+│   │   │   │   │   ├── 13-kube-public-cloud.md
+│   │   │   │   │   ├── 20-fabric-zh.md
+│   │   │   │   │   ├── 20-fabric.md
+│   │   │   │   │   ├── 21-fabric-operations-console.md
+│   │   │   │   │   ├── 22-fabric-ansible-collection.md
+│   │   │   │   │   ├── 30-chaincode-zh.md
+│   │   │   │   │   ├── 30-chaincode.md
+│   │   │   │   │   ├── 31-fabric-ansible-chaincode.md
+│   │   │   │   │   ├── 40-bananas-zh.md
+│   │   │   │   │   ├── 40-bananas.md
+│   │   │   │   │   ├── 50-OpenShift-Deployment.md
+│   │   │   │   │   ├── 90-teardown.md
+│   │   │   │   │   └── README.md
+│   │   │   │   ├── SmartContractDev
+│   │   │   │   │   ├── 00-Introduction-ES.md
+│   │   │   │   │   ├── 00-Introduction.md
+│   │   │   │   │   ├── 01-Exercise-Getting-Started-ES.md
+│   │   │   │   │   ├── 01-Exercise-Getting-Started.md
+│   │   │   │   │   ├── 02-Exercise-Adding-tx-function-ES.md
+│   │   │   │   │   ├── 02-Exercise-Adding-tx-function.md
+│   │   │   │   │   ├── 03-Test-And-Debug-Reference-ES.md
+│   │   │   │   │   └── 03-Test-And-Debug-Reference.md
+│   │   │   │   ├── images
+│   │   │   │   │   ├── ApplicationDev
+│   │   │   │   │   │   ├── fabric-gateway-deployment.png
+│   │   │   │   │   │   ├── fabric-gateway-model.png
+│   │   │   │   │   │   ├── legacy-sdk-model.png
+│   │   │   │   │   │   └── transaction-submit-flow.png
+│   │   │   │   │   ├── ApplicationDev.pptx
+│   │   │   │   │   ├── CloudReady
+│   │   │   │   │   │   ├── 00-cloud-ready-2.png
+│   │   │   │   │   │   ├── 10-kube.png
+│   │   │   │   │   │   ├── 12-kube-ec2-vm.png
+│   │   │   │   │   │   ├── 20-fabric.png
+│   │   │   │   │   │   ├── 30-chaincode.png
+│   │   │   │   │   │   ├── 40-gateway-client-app.png
+│   │   │   │   │   │   └── kube-ec2-vm.png
+│   │   │   │   │   ├── CloudReady.pptx
+│   │   │   │   │   ├── cloud-vm-with-operator-network.png
+│   │   │   │   │   ├── multipass-operator-network.png
+│   │   │   │   │   ├── multipass-test-network.png
+│   │   │   │   │   └── readme_diagram.png
+│   │   │   │   └── tips-for-windows-dev.md
+│   │   │   ├── infrastructure
+│   │   │   │   ├── configuration
+│   │   │   │   │   ├── fabric-common-vars.yml
+│   │   │   │   │   ├── fabric-ordering-org-vars.yml
+│   │   │   │   │   ├── fabric-org1-vars.yml
+│   │   │   │   │   ├── fabric-org2-vars.yml
+│   │   │   │   │   ├── fabric-sail.yaml
+│   │   │   │   │   └── operator-console-vars.yml
+│   │   │   │   ├── ec2-cloud-config.yaml
+│   │   │   │   ├── fabric_network_playbooks
+│   │   │   │   │   ├── 00-complete.yml
+│   │   │   │   │   ├── 01-create-ordering-organization-components.yml
+│   │   │   │   │   ├── 02-create-endorsing-organization-components.yml
+│   │   │   │   │   ├── 05-enable-capabilities.yml
+│   │   │   │   │   ├── 06-add-organization-to-consortium.yml
+│   │   │   │   │   ├── 09-admins-policy.json.j2
+│   │   │   │   │   ├── 09-create-channel.yml
+│   │   │   │   │   ├── 09-endorsement-policy.json.j2
+│   │   │   │   │   ├── 09-lifecycle-endorsement-policy.json.j2
+│   │   │   │   │   ├── 09-readers-policy.json.j2
+│   │   │   │   │   ├── 09-writers-policy.json.j2
+│   │   │   │   │   ├── 10-join-peer-to-channel.yml
+│   │   │   │   │   ├── 11-add-anchor-peer-to-channel.yml
+│   │   │   │   │   ├── 12-create-endorsing-organization-components.yml
+│   │   │   │   │   ├── 15-add-organization-to-channel.yml
+│   │   │   │   │   ├── 15-admins-policy.json.j2
+│   │   │   │   │   ├── 15-endorsement-policy.json.j2
+│   │   │   │   │   ├── 15-lifecycle-endorsement-policy.json.j2
+│   │   │   │   │   ├── 15-readers-policy.json.j2
+│   │   │   │   │   ├── 15-writers-policy.json.j2
+│   │   │   │   │   ├── 16-import-ordering-service.yml
+│   │   │   │   │   ├── 17-join-peer-to-channel.yml
+│   │   │   │   │   └── 18-add-anchor-peer-to-channel.yml
+│   │   │   │   ├── kind_console_ingress
+│   │   │   │   │   ├── 90-KIND-ingress.yml
+│   │   │   │   │   └── templates
+│   │   │   │   │       ├── coredns
+│   │   │   │   │       │   └── coredns.yaml.j2
+│   │   │   │   │       └── ingress
+│   │   │   │   │           ├── ingress-nginx-controller.yaml
+│   │   │   │   │           └── kustomization.yaml
+│   │   │   │   ├── kind_with_nginx.sh
+│   │   │   │   ├── multipass-cloud-config.yaml
+│   │   │   │   ├── operator_console_playbooks
+│   │   │   │   │   ├── 01-operator-install.yml
+│   │   │   │   │   └── 02-console-install.yml
+│   │   │   │   ├── pkgcc.sh
+│   │   │   │   ├── production_chaincode_playbooks
+│   │   │   │   │   ├── 19-install-and-approve-chaincode.yml
+│   │   │   │   │   ├── 20-install-and-approve-chaincode.yml
+│   │   │   │   │   ├── 21-commit-chaincode.yml
+│   │   │   │   │   ├── 22-register-application.yml
+│   │   │   │   │   └── asset-transfer_appid.json
+│   │   │   │   ├── sample-network
+│   │   │   │   │   ├── .gitignore
+│   │   │   │   │   ├── config
+│   │   │   │   │   │   ├── cas
+│   │   │   │   │   │   │   ├── kustomization.yaml
+│   │   │   │   │   │   │   ├── org0-ca.yaml
+│   │   │   │   │   │   │   ├── org1-ca.yaml
+│   │   │   │   │   │   │   └── org2-ca.yaml
+│   │   │   │   │   │   ├── configtx-template.yaml
+│   │   │   │   │   │   ├── console
+│   │   │   │   │   │   │   ├── hlf-operations-console.yaml
+│   │   │   │   │   │   │   └── kustomization.yaml
+│   │   │   │   │   │   ├── core.yaml
+│   │   │   │   │   │   ├── gateway
+│   │   │   │   │   │   │   ├── kustomization.yaml
+│   │   │   │   │   │   │   ├── org1-peer-gateway.yaml
+│   │   │   │   │   │   │   └── org2-peer-gateway.yaml
+│   │   │   │   │   │   ├── manager
+│   │   │   │   │   │   │   ├── fabric-operator-manager.yaml
+│   │   │   │   │   │   │   └── kustomization.yaml
+│   │   │   │   │   │   ├── orderers
+│   │   │   │   │   │   │   ├── kustomization.yaml
+│   │   │   │   │   │   │   └── org0-orderers.yaml
+│   │   │   │   │   │   ├── peers
+│   │   │   │   │   │   │   ├── kustomization.yaml
+│   │   │   │   │   │   │   ├── org1-peer1.yaml
+│   │   │   │   │   │   │   ├── org1-peer2.yaml
+│   │   │   │   │   │   │   ├── org2-peer1.yaml
+│   │   │   │   │   │   │   └── org2-peer2.yaml
+│   │   │   │   │   │   └── rbac
+│   │   │   │   │   │       ├── fabric-operator-clusterrole.yaml
+│   │   │   │   │   │       ├── fabric-operator-clusterrolebinding.yaml
+│   │   │   │   │   │       ├── fabric-operator-serviceaccount.yaml
+│   │   │   │   │   │       └── kustomization.yaml
+│   │   │   │   │   ├── network
+│   │   │   │   │   └── scripts
+│   │   │   │   │       ├── channel.sh
+│   │   │   │   │       ├── console.sh
+│   │   │   │   │       ├── frontend_build.sh
+│   │   │   │   │       ├── frontend_deployment.yaml
+│   │   │   │   │       ├── prereqs.sh
+│   │   │   │   │       ├── rest_deployment.yaml
+│   │   │   │   │       ├── rest_sample.sh
+│   │   │   │   │       ├── sample_network.sh
+│   │   │   │   │       └── utils.sh
+│   │   │   │   └── setup_storage_classes.sh
+│   │   │   ├── justfile
+│   │   │   └── tests
+│   │   │       ├── 00-chaincode-e2e.sh
+│   │   │       ├── 10-appdev-e2e.sh
+│   │   │       ├── 20-cloud-e2e.sh
+│   │   │       ├── 30-ansible-e2e.sh
+│   │   │       └── 40-console.sh
+│   │   ├── hardware-security-module
+│   │   │   ├── .gitignore
+│   │   │   ├── README.md
+│   │   │   ├── application-go
+│   │   │   │   ├── go.mod
+│   │   │   │   ├── go.sum
+│   │   │   │   └── hsm-sample.go
+│   │   │   ├── application-typescript
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── eslint.config.mjs
+│   │   │   │   ├── package.json
+│   │   │   │   ├── src
+│   │   │   │   │   └── hsm-sample.ts
+│   │   │   │   └── tsconfig.json
+│   │   │   ├── ca-client-config
+│   │   │   │   ├── .gitignore
+│   │   │   │   └── fabric-ca-client-config-template.yaml
+│   │   │   └── scripts
+│   │   │       └── generate-hsm-user.sh
+│   │   ├── high-throughput
+│   │   │   ├── README.md
+│   │   │   ├── application-go
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── app.go
+│   │   │   │   ├── functions
+│   │   │   │   │   ├── deletePrune.go
+│   │   │   │   │   ├── manyUpdates.go
+│   │   │   │   │   ├── query.go
+│   │   │   │   │   ├── update.go
+│   │   │   │   │   └── util.go
+│   │   │   │   ├── go.mod
+│   │   │   │   └── go.sum
+│   │   │   ├── chaincode-go
+│   │   │   │   ├── go.mod
+│   │   │   │   ├── go.sum
+│   │   │   │   └── high-throughput.go
+│   │   │   ├── networkDown.sh
+│   │   │   └── startFabric.sh
+│   │   ├── off_chain_data
+│   │   │   ├── README.md
+│   │   │   ├── application-go
+│   │   │   │   ├── app.go
+│   │   │   │   ├── connect.go
+│   │   │   │   ├── contract
+│   │   │   │   │   ├── contract.go
+│   │   │   │   │   └── model.go
+│   │   │   │   ├── getAllAssets.go
+│   │   │   │   ├── go.mod
+│   │   │   │   ├── go.sum
+│   │   │   │   ├── listen.go
+│   │   │   │   ├── parser
+│   │   │   │   │   ├── block.go
+│   │   │   │   │   ├── block_test.go
+│   │   │   │   │   ├── endorserTransaction.go
+│   │   │   │   │   ├── namespaceReadWriteSet.go
+│   │   │   │   │   ├── payload.go
+│   │   │   │   │   ├── readWriteSet.go
+│   │   │   │   │   └── transaction.go
+│   │   │   │   ├── store.go
+│   │   │   │   ├── transact.go
+│   │   │   │   └── utils.go
+│   │   │   ├── application-java
+│   │   │   │   ├── .gitignore
+│   │   │   │   ├── app
+│   │   │   │   │   ├── build.gradle
+│   │   │   │   │   ├── pom.xml
+│   │   │   │   │   └── src
+│   │   │   │   │       └── main
+│   │   │   │   │           └── java
+│   │   │   │   │               ├── App.java
+│   │   │   │   │               ├── Asset.java
+│   │   │   │   │               ├── AssetTransferBasic.java
+│   │   │   │   │               ├── BlockProcessor.java
+│   │   │   │   │               ├── Command.java
+│   │   │   │   │               ├── Connections.java
+│   │   │   │   │               ├── ExpectedException.java
+│   │   │   │   │               ├── GetAllAssets.java
+│   │   │   │   │               ├── Listen.java
+│   │   │   │   │               ├── Store.java
+│   │   │   │   │               ├── Transact.java
+│   │   │   │   │               ├── TransactApp.java
+│   │   │   │   │               ├── TransactionProcessor.java
+│   │   │   │   │               ├── Utils.java
+│   │   │   │   │               ├── Write.java
+│   │   │   │   │               └── parser
+│   │   │   │   │                   ├── Block.java
+│   │   │   │   │                   ├── BlockParser.java
+│   │   │   │   │                   ├── NamespaceReadWriteSet.java
+│   │   │   │   │                   ├── ParsedBlock.java
+│   │   │   │   │                   ├── ParsedPayload.java
+│   │   │   │   │                   ├── ParsedReadWriteSet.java
+│   │   │   │   │                   ├── ParsedTransaction.java
+│   │   │   │   │                   ├── ParsedTransactionAction.java
+│   │   │   │   │                   ├── Transaction.java
+│   │   │   │   │                   └── Utils.java
+│   │   │   │   ├── config
+│   │   │   │   │   └── checkstyle
+│   │   │   │   │       ├── checkstyle.xml
+│   │   │   │   │       └── java-copyright-header.txt
+│   │   │   │   ├── gradle
+│   │   │   │   │   └── wrapper
+│   │   │   │   │       ├── gradle-wrapper.jar
+│   │   │   │   │       └── gradle-wrapper.properties
+│   │   │   │   ├── gradlew
+│   │   │   │   ├── gradlew.bat
+│   │   │   │   └── settings.gradle
+│   │   │   └── application-typescript
+│   │   │       ├── .gitignore
+│   │   │       ├── .npmrc
+│   │   │       ├── eslint.config.mjs
+│   │   │       ├── package.json
+│   │   │       ├── src
+│   │   │       │   ├── app.ts
+│   │   │       │   ├── blockParser.ts
+│   │   │       │   ├── connect.ts
+│   │   │       │   ├── contract.ts
+│   │   │       │   ├── expectedError.ts
+│   │   │       │   ├── getAllAssets.ts
+│   │   │       │   ├── listen.ts
+│   │   │       │   ├── transact.ts
+│   │   │       │   └── utils.ts
+│   │   │       └── tsconfig.json
+│   │   ├── test-application
+│   │   │   └── javascript
+│   │   │       ├── AppUtil.js
+│   │   │       └── CAUtil.js
+│   │   ├── test-network
+│   │   │   ├── .gitignore
+│   │   │   ├── CHAINCODE_AS_A_SERVICE_TUTORIAL.md
+│   │   │   ├── README.md
+│   │   │   ├── addOrg3
+│   │   │   │   ├── README.md
+│   │   │   │   ├── addOrg3.sh
+│   │   │   │   ├── ccp-generate.sh
+│   │   │   │   ├── ccp-template.json
+│   │   │   │   ├── ccp-template.yaml
+│   │   │   │   ├── compose
+│   │   │   │   │   ├── compose-ca-org3.yaml
+│   │   │   │   │   ├── compose-couch-org3.yaml
+│   │   │   │   │   ├── compose-org3.yaml
+│   │   │   │   │   ├── docker
+│   │   │   │   │   │   ├── docker-compose-ca-org3.yaml
+│   │   │   │   │   │   ├── docker-compose-couch-org3.yaml
+│   │   │   │   │   │   ├── docker-compose-org3.yaml
+│   │   │   │   │   │   └── peercfg
+│   │   │   │   │   │       └── core.yaml
+│   │   │   │   │   └── podman
+│   │   │   │   │       ├── peercfg
+│   │   │   │   │       │   └── core.yaml
+│   │   │   │   │       ├── podman-compose-ca-org3.yaml
+│   │   │   │   │       ├── podman-compose-couch-org3.yaml
+│   │   │   │   │       └── podman-compose-org3.yaml
+│   │   │   │   ├── configtx.yaml
+│   │   │   │   ├── fabric-ca
+│   │   │   │   │   ├── org3
+│   │   │   │   │   │   └── fabric-ca-server-config.yaml
+│   │   │   │   │   └── registerEnroll.sh
+│   │   │   │   └── org3-crypto.yaml
+│   │   │   ├── bft-config
+│   │   │   │   └── configtx.yaml
+│   │   │   ├── compose
+│   │   │   │   ├── compose-bft-test-net.yaml
+│   │   │   │   ├── compose-ca.yaml
+│   │   │   │   ├── compose-couch.yaml
+│   │   │   │   ├── compose-test-net.yaml
+│   │   │   │   ├── docker
+│   │   │   │   │   ├── docker-compose-bft-test-net.yaml
+│   │   │   │   │   ├── docker-compose-ca.yaml
+│   │   │   │   │   ├── docker-compose-couch.yaml
+│   │   │   │   │   ├── docker-compose-test-net.yaml
+│   │   │   │   │   └── peercfg
+│   │   │   │   │       └── core.yaml
+│   │   │   │   └── podman
+│   │   │   │       ├── peercfg
+│   │   │   │       │   └── core.yaml
+│   │   │   │       ├── podman-compose-ca.yaml
+│   │   │   │       ├── podman-compose-couch.yaml
+│   │   │   │       └── podman-compose-test-net.yaml
+│   │   │   ├── configtx
+│   │   │   │   └── configtx.yaml
+│   │   │   ├── monitordocker.sh
+│   │   │   ├── network.config
+│   │   │   ├── network.sh
+│   │   │   ├── organizations
+│   │   │   │   ├── ccp-generate.sh
+│   │   │   │   ├── ccp-template.json
+│   │   │   │   ├── ccp-template.yaml
+│   │   │   │   ├── cfssl
+│   │   │   │   │   ├── admin-csr-template.json
+│   │   │   │   │   ├── ca-orderer.json
+│   │   │   │   │   ├── ca-peer.json
+│   │   │   │   │   ├── cert-signing-config.json
+│   │   │   │   │   ├── client-csr-template.json
+│   │   │   │   │   ├── orderer-csr-template.json
+│   │   │   │   │   ├── peer-csr-template.json
+│   │   │   │   │   └── registerEnroll.sh
+│   │   │   │   ├── cryptogen
+│   │   │   │   │   ├── crypto-config-orderer.yaml
+│   │   │   │   │   ├── crypto-config-org1.yaml
+│   │   │   │   │   └── crypto-config-org2.yaml
+│   │   │   │   └── fabric-ca
+│   │   │   │       ├── ordererOrg
+│   │   │   │       │   └── fabric-ca-server-config.yaml
+│   │   │   │       ├── org1
+│   │   │   │       │   └── fabric-ca-server-config.yaml
+│   │   │   │       ├── org2
+│   │   │   │       │   └── fabric-ca-server-config.yaml
+│   │   │   │       └── registerEnroll.sh
+│   │   │   ├── prometheus-grafana
+│   │   │   │   ├── README.md
+│   │   │   │   ├── docker-compose.yaml
+│   │   │   │   ├── grafana
+│   │   │   │   │   ├── config.monitoring
+│   │   │   │   │   └── provisioning
+│   │   │   │   │       ├── dashboards
+│   │   │   │   │       │   ├── dashboard.yml
+│   │   │   │   │       │   └── hlf-performances.json
+│   │   │   │   │       └── datasources
+│   │   │   │   │           └── datasource.yml
+│   │   │   │   ├── grafana_db
+│   │   │   │   │   └── grafana.db
+│   │   │   │   └── prometheus
+│   │   │   │       └── prometheus.yml
+│   │   │   ├── scripts
+│   │   │   │   ├── add_new_orderer_to_config.py
+│   │   │   │   ├── ccutils.sh
+│   │   │   │   ├── configUpdate.sh
+│   │   │   │   ├── createChannel.sh
+│   │   │   │   ├── deployCC.sh
+│   │   │   │   ├── deployCCAAS.sh
+│   │   │   │   ├── envVar.sh
+│   │   │   │   ├── orderer.sh
+│   │   │   │   ├── orderer2.sh
+│   │   │   │   ├── orderer3.sh
+│   │   │   │   ├── orderer4.sh
+│   │   │   │   ├── org3-scripts
+│   │   │   │   │   ├── joinChannel.sh
+│   │   │   │   │   └── updateChannelConfig.sh
+│   │   │   │   ├── packageCC.sh
+│   │   │   │   ├── pkgcc.sh
+│   │   │   │   ├── setAnchorPeer.sh
+│   │   │   │   └── utils.sh
+│   │   │   ├── setOrgEnv.sh
+│   │   │   └── system-genesis-block
+│   │   │       └── .gitkeep
+│   │   ├── test-network-k8s
+│   │   │   ├── .gitignore
+│   │   │   ├── README.md
+│   │   │   ├── config
+│   │   │   │   ├── org0
+│   │   │   │   │   ├── bft
+│   │   │   │   │   │   └── configtx-template.yaml
+│   │   │   │   │   ├── configtx-template.yaml
+│   │   │   │   │   └── fabric-ca-server-config.yaml
+│   │   │   │   ├── org1
+│   │   │   │   │   ├── core.yaml
+│   │   │   │   │   └── fabric-ca-server-config.yaml
+│   │   │   │   └── org2
+│   │   │   │       ├── core.yaml
+│   │   │   │       └── fabric-ca-server-config.yaml
+│   │   │   ├── docs
+│   │   │   │   ├── APPLICATIONS.md
+│   │   │   │   ├── BFT_ORDERERS.md
+│   │   │   │   ├── CA.md
+│   │   │   │   ├── CALIPER.md
+│   │   │   │   ├── CHAINCODE.md
+│   │   │   │   ├── CHAINCODE_AS_A_SERVICE.md
+│   │   │   │   ├── CHANNELS.md
+│   │   │   │   ├── HIGH_AVAILABILITY.md
+│   │   │   │   ├── KUBERNETES.md
+│   │   │   │   ├── README.md
+│   │   │   │   ├── TEST_NETWORK.md
+│   │   │   │   └── images
+│   │   │   │       └── test-network.png
+│   │   │   ├── kube
+│   │   │   │   ├── application-deployment.yaml
+│   │   │   │   ├── fabric-builder-role.yaml
+│   │   │   │   ├── fabric-builder-rolebinding.yaml
+│   │   │   │   ├── fabric-rest-sample.yaml
+│   │   │   │   ├── ingress-nginx-k3s.yaml
+│   │   │   │   ├── ingress-nginx-kind.yaml
+│   │   │   │   ├── ns-test-network.yaml
+│   │   │   │   ├── org0
+│   │   │   │   │   ├── org0-ca.yaml
+│   │   │   │   │   ├── org0-job-scrub-fabric-volumes.yaml
+│   │   │   │   │   ├── org0-orderer1.yaml
+│   │   │   │   │   ├── org0-orderer2.yaml
+│   │   │   │   │   ├── org0-orderer3.yaml
+│   │   │   │   │   ├── org0-orderer4.yaml
+│   │   │   │   │   └── org0-tls-cert-issuer.yaml
+│   │   │   │   ├── org1
+│   │   │   │   │   ├── org1-ca.yaml
+│   │   │   │   │   ├── org1-cc-template.yaml
+│   │   │   │   │   ├── org1-install-k8s-builder.yaml
+│   │   │   │   │   ├── org1-job-scrub-fabric-volumes.yaml
+│   │   │   │   │   ├── org1-peer1.yaml
+│   │   │   │   │   ├── org1-peer2.yaml
+│   │   │   │   │   └── org1-tls-cert-issuer.yaml
+│   │   │   │   ├── org2
+│   │   │   │   │   ├── org2-ca.yaml
+│   │   │   │   │   ├── org2-cc-template.yaml
+│   │   │   │   │   ├── org2-install-k8s-builder.yaml
+│   │   │   │   │   ├── org2-job-scrub-fabric-volumes.yaml
+│   │   │   │   │   ├── org2-peer1.yaml
+│   │   │   │   │   ├── org2-peer2.yaml
+│   │   │   │   │   └── org2-tls-cert-issuer.yaml
+│   │   │   │   ├── pvc-fabric-org0.yaml
+│   │   │   │   ├── pvc-fabric-org1.yaml
+│   │   │   │   ├── pvc-fabric-org2.yaml
+│   │   │   │   └── root-tls-cert-issuer.yaml
+│   │   │   ├── network
+│   │   │   └── scripts
+│   │   │       ├── application_connection.sh
+│   │   │       ├── appuser.id.template
+│   │   │       ├── ccp-template.json
+│   │   │       ├── chaincode.sh
+│   │   │       ├── channel.sh
+│   │   │       ├── cluster.sh
+│   │   │       ├── fabric_CAs.sh
+│   │   │       ├── fabric_config.sh
+│   │   │       ├── kind.sh
+│   │   │       ├── prereqs.sh
+│   │   │       ├── rest_sample.sh
+│   │   │       ├── set_anchor_peer.sh
+│   │   │       ├── test_network.sh
+│   │   │       └── utils.sh
+│   │   ├── test-network-nano-bash
+│   │   │   ├── .gitignore
+│   │   │   ├── README.md
+│   │   │   ├── bft-config
+│   │   │   │   └── configtx.yaml
+│   │   │   ├── ca
+│   │   │   │   ├── ca_config
+│   │   │   │   │   ├── ca
+│   │   │   │   │   │   └── fabric-ca-server-config.yaml
+│   │   │   │   │   └── tlsca
+│   │   │   │   │       └── fabric-ca-server-config.yaml
+│   │   │   │   ├── ca_utils.sh
+│   │   │   │   ├── ccp-generate.sh
+│   │   │   │   ├── ccp-template.json
+│   │   │   │   ├── ccp-template.yaml
+│   │   │   │   ├── config.yaml
+│   │   │   │   └── createEnrollments.sh
+│   │   │   ├── ca_terminal_setup.png
+│   │   │   ├── chaincode-external
+│   │   │   │   ├── connection.json
+│   │   │   │   └── metadata.json
+│   │   │   ├── chaincode_interaction.sh
+│   │   │   ├── configtx.yaml
+│   │   │   ├── configureExternalBuilders.sh
+│   │   │   ├── crypto-config.yaml
+│   │   │   ├── external_builders
+│   │   │   │   ├── core_yaml_change.yaml
+│   │   │   │   ├── golang
+│   │   │   │   │   └── bin
+│   │   │   │   │       ├── detect
+│   │   │   │   │       ├── release
+│   │   │   │   │       └── run
+│   │   │   │   └── node
+│   │   │   │       └── bin
+│   │   │   │           ├── detect
+│   │   │   │           ├── release
+│   │   │   │           └── run
+│   │   │   ├── generate_artifacts.sh
+│   │   │   ├── install&approve&commit_chaincode_peer1.sh
+│   │   │   ├── join_channel.sh
+│   │   │   ├── join_orderers.sh
+│   │   │   ├── network.sh
+│   │   │   ├── orderer1.sh
+│   │   │   ├── orderer2.sh
+│   │   │   ├── orderer3.sh
+│   │   │   ├── orderer4.sh
+│   │   │   ├── ordererca.sh
+│   │   │   ├── org1ca.sh
+│   │   │   ├── org2ca.sh
+│   │   │   ├── peer1.sh
+│   │   │   ├── peer1admin.sh
+│   │   │   ├── peer2.sh
+│   │   │   ├── peer2admin.sh
+│   │   │   ├── peer3.sh
+│   │   │   ├── peer3admin.sh
+│   │   │   ├── peer4.sh
+│   │   │   ├── peer4admin.sh
+│   │   │   └── terminal_setup.png
+│   │   ├── token-erc-1155
+│   │   │   ├── README.md
+│   │   │   └── chaincode-go
+│   │   │       ├── chaincode
+│   │   │       │   └── contract.go
+│   │   │       ├── erc1155.go
+│   │   │       ├── go.mod
+│   │   │       └── go.sum
+│   │   ├── token-erc-20
+│   │   │   ├── README.md
+│   │   │   ├── chaincode-go
+│   │   │   │   ├── chaincode
+│   │   │   │   │   └── token_contract.go
+│   │   │   │   ├── go.mod
+│   │   │   │   ├── go.sum
+│   │   │   │   └── token_erc_20.go
+│   │   │   ├── chaincode-java
+│   │   │   │   ├── Dockerfile
+│   │   │   │   ├── build.gradle
+│   │   │   │   ├── config
+│   │   │   │   │   └── checkstyle
+│   │   │   │   │       ├── checkstyle.xml
+│   │   │   │   │       └── suppressions.xml
+│   │   │   │   ├── docker
+│   │   │   │   │   └── docker-entrypoint.sh
+│   │   │   │   ├── gradle
+│   │   │   │   │   └── wrapper
+│   │   │   │   │       ├── gradle-wrapper.jar
+│   │   │   │   │       └── gradle-wrapper.properties
+│   │   │   │   ├── gradlew
+│   │   │   │   ├── gradlew.bat
+│   │   │   │   ├── settings.gradle
+│   │   │   │   └── src
+│   │   │   │       ├── main
+│   │   │   │       │   └── java
+│   │   │   │       │       └── org
+│   │   │   │       │           └── hyperledger
+│   │   │   │       │               └── fabric
+│   │   │   │       │                   └── samples
+│   │   │   │       │                       └── erc20
+│   │   │   │       │                           ├── ContractConstants.java
+│   │   │   │       │                           ├── ContractErrors.java
+│   │   │   │       │                           ├── ERC20TokenContract.java
+│   │   │   │       │                           ├── model
+│   │   │   │       │                           │   ├── Approval.java
+│   │   │   │       │                           │   └── Transfer.java
+│   │   │   │       │                           └── utils
+│   │   │   │       │                               └── ContractUtility.java
+│   │   │   │       └── test
+│   │   │   │           ├── java
+│   │   │   │           │   └── org
+│   │   │   │           │       └── hyperledger
+│   │   │   │           │           └── fabric
+│   │   │   │           │               └── samples
+│   │   │   │           │                   └── erc20
+│   │   │   │           │                       └── TokenERC20ContractTest.java
+│   │   │   │           └── resources
+│   │   │   │               └── mockito-extensions
+│   │   │   │                   └── org.mockito.plugins.MockMaker
+│   │   │   └── chaincode-javascript
+│   │   │       ├── .editorconfig
+│   │   │       ├── .eslintignore
+│   │   │       ├── .eslintrc.js
+│   │   │       ├── .gitignore
+│   │   │       ├── index.js
+│   │   │       ├── lib
+│   │   │       │   └── tokenERC20.js
+│   │   │       ├── npm-shrinkwrap.json
+│   │   │       ├── package.json
+│   │   │       └── test
+│   │   │           └── tokenERC20.test.js
+│   │   ├── token-erc-721
+│   │   │   ├── README.md
+│   │   │   ├── chaincode-go
+│   │   │   │   ├── chaincode
+│   │   │   │   │   ├── erc721-contract.go
+│   │   │   │   │   ├── erc721-contract_test.go
+│   │   │   │   │   └── erc721.go
+│   │   │   │   ├── go.mod
+│   │   │   │   ├── go.sum
+│   │   │   │   └── main.go
+│   │   │   ├── chaincode-java
+│   │   │   │   ├── Dockerfile
+│   │   │   │   ├── build.gradle
+│   │   │   │   ├── config
+│   │   │   │   │   └── checkstyle
+│   │   │   │   │       ├── checkstyle.xml
+│   │   │   │   │       └── suppressions.xml
+│   │   │   │   ├── docker
+│   │   │   │   │   └── docker-entrypoint.sh
+│   │   │   │   ├── gradle
+│   │   │   │   │   └── wrapper
+│   │   │   │   │       ├── gradle-wrapper.jar
+│   │   │   │   │       └── gradle-wrapper.properties
+│   │   │   │   ├── gradlew
+│   │   │   │   ├── gradlew.bat
+│   │   │   │   ├── settings.gradle
+│   │   │   │   └── src
+│   │   │   │       ├── main
+│   │   │   │       │   └── java
+│   │   │   │       │       └── org
+│   │   │   │       │           └── hyperledger
+│   │   │   │       │               └── fabric
+│   │   │   │       │                   └── samples
+│   │   │   │       │                       └── erc721
+│   │   │   │       │                           ├── ContractConstants.java
+│   │   │   │       │                           ├── ContractErrors.java
+│   │   │   │       │                           ├── ERC721TokenContract.java
+│   │   │   │       │                           ├── models
+│   │   │   │       │                           │   ├── Approval.java
+│   │   │   │       │                           │   ├── NFT.java
+│   │   │   │       │                           │   └── Transfer.java
+│   │   │   │       │                           └── utils
+│   │   │   │       │                               └── ContractUtility.java
+│   │   │   │       └── test
+│   │   │   │           ├── java
+│   │   │   │           │   └── org
+│   │   │   │           │       └── hyperledger
+│   │   │   │           │           └── fabric
+│   │   │   │           │               └── samples
+│   │   │   │           │                   └── erc721
+│   │   │   │           │                       └── ERC721TokenContractTest.java
+│   │   │   │           └── resources
+│   │   │   │               └── mockito-extensions
+│   │   │   │                   └── org.mockito.plugins.MockMaker
+│   │   │   └── chaincode-javascript
+│   │   │       ├── .editorconfig
+│   │   │       ├── .eslintignore
+│   │   │       ├── .eslintrc.js
+│   │   │       ├── .gitignore
+│   │   │       ├── index.js
+│   │   │       ├── lib
+│   │   │       │   └── tokenERC721.js
+│   │   │       ├── npm-shrinkwrap.json
+│   │   │       ├── package.json
+│   │   │       └── test
+│   │   │           └── tokenERC721.test.js
+│   │   ├── token-sdk
+│   │   │   ├── .dockerignore
+│   │   │   ├── .gitignore
+│   │   │   ├── Dockerfile
+│   │   │   ├── README.md
+│   │   │   ├── auditor
+│   │   │   │   ├── conf
+│   │   │   │   │   └── core.yaml
+│   │   │   │   ├── go.mod
+│   │   │   │   ├── go.sum
+│   │   │   │   ├── main.go
+│   │   │   │   ├── oapi-server.yaml
+│   │   │   │   ├── routes
+│   │   │   │   │   ├── operations.go
+│   │   │   │   │   ├── routes.gen.go
+│   │   │   │   │   ├── routes.go
+│   │   │   │   │   └── server.go
+│   │   │   │   └── service
+│   │   │   │       ├── audit.go
+│   │   │   │       ├── balance.go
+│   │   │   │       └── history.go
+│   │   │   ├── components.png
+│   │   │   ├── compose-ca.yaml
+│   │   │   ├── dependencies.png
+│   │   │   ├── docker-compose.yaml
+│   │   │   ├── e2e
+│   │   │   │   ├── client.gen.go
+│   │   │   │   ├── e2e_test.go
+│   │   │   │   ├── go.mod
+│   │   │   │   ├── go.sum
+│   │   │   │   └── oapi-client.yaml
+│   │   │   ├── explorer
+│   │   │   │   ├── .env
+│   │   │   │   ├── config.json
+│   │   │   │   ├── connection-profile
+│   │   │   │   │   └── test-network.json
+│   │   │   │   └── docker-compose.yaml
+│   │   │   ├── go.work
+│   │   │   ├── go.work.sum
+│   │   │   ├── issuer
+│   │   │   │   ├── conf
+│   │   │   │   │   └── core.yaml
+│   │   │   │   ├── go.mod
+│   │   │   │   ├── go.sum
+│   │   │   │   ├── main.go
+│   │   │   │   ├── oapi-server.yaml
+│   │   │   │   ├── routes
+│   │   │   │   │   ├── operations.go
+│   │   │   │   │   ├── routes.gen.go
+│   │   │   │   │   ├── routes.go
+│   │   │   │   │   └── server.go
+│   │   │   │   └── service
+│   │   │   │       └── issue.go
+│   │   │   ├── owner
+│   │   │   │   ├── conf
+│   │   │   │   │   ├── owner1
+│   │   │   │   │   │   └── core.yaml
+│   │   │   │   │   └── owner2
+│   │   │   │   │       └── core.yaml
+│   │   │   │   ├── go.mod
+│   │   │   │   ├── go.sum
+│   │   │   │   ├── main.go
+│   │   │   │   ├── oapi-server.yaml
+│   │   │   │   ├── routes
+│   │   │   │   │   ├── operations.go
+│   │   │   │   │   ├── routes.gen.go
+│   │   │   │   │   ├── routes.go
+│   │   │   │   │   └── server.go
+│   │   │   │   └── service
+│   │   │   │       ├── accept.go
+│   │   │   │       ├── balance.go
+│   │   │   │       ├── history.go
+│   │   │   │       ├── redeem.go
+│   │   │   │       └── transfer.go
+│   │   │   ├── scripts
+│   │   │   │   ├── down.sh
+│   │   │   │   ├── enroll-users.sh
+│   │   │   │   └── up.sh
+│   │   │   ├── swagger.yaml
+│   │   │   ├── tokenchaincode
+│   │   │   │   └── Dockerfile
+│   │   │   └── transfer.png
+│   │   └── token-utxo
+│   │       ├── README.md
+│   │       └── chaincode-go
+│   │           ├── chaincode
+│   │           │   └── token_contract.go
+│   │           ├── go.mod
+│   │           ├── go.sum
+│   │           └── token_utxo.go
+│   ├── organizations
+│   │   ├── ordererOrganizations
+│   │   └── peerOrganizations
+│   │       ├── org1.example.com
+│   │       │   ├── ca
+│   │       │   │   ├── ca.org1.example.com-cert.pem
+│   │       │   │   └── priv_sk
+│   │       │   ├── msp
+│   │       │   │   ├── admincerts
+│   │       │   │   ├── cacerts
+│   │       │   │   │   └── ca.org1.example.com-cert.pem
+│   │       │   │   ├── config.yaml
+│   │       │   │   └── tlscacerts
+│   │       │   │       └── tlsca.org1.example.com-cert.pem
+│   │       │   ├── peers
+│   │       │   │   └── peer0.org1.example.com
+│   │       │   │       ├── msp
+│   │       │   │       │   ├── admincerts
+│   │       │   │       │   ├── cacerts
+│   │       │   │       │   │   └── ca.org1.example.com-cert.pem
+│   │       │   │       │   ├── config.yaml
+│   │       │   │       │   ├── keystore
+│   │       │   │       │   │   └── priv_sk
+│   │       │   │       │   ├── signcerts
+│   │       │   │       │   │   └── peer0.org1.example.com-cert.pem
+│   │       │   │       │   └── tlscacerts
+│   │       │   │       │       └── tlsca.org1.example.com-cert.pem
+│   │       │   │       └── tls
+│   │       │   │           ├── ca.crt
+│   │       │   │           ├── server.crt
+│   │       │   │           └── server.key
+│   │       │   ├── tlsca
+│   │       │   │   ├── priv_sk
+│   │       │   │   └── tlsca.org1.example.com-cert.pem
+│   │       │   └── users
+│   │       │       ├── Admin@org1.example.com
+│   │       │       │   ├── msp
+│   │       │       │   │   ├── admincerts
+│   │       │       │   │   ├── cacerts
+│   │       │       │   │   │   └── ca.org1.example.com-cert.pem
+│   │       │       │   │   ├── config.yaml
+│   │       │       │   │   ├── keystore
+│   │       │       │   │   │   └── priv_sk
+│   │       │       │   │   ├── signcerts
+│   │       │       │   │   │   └── Admin@org1.example.com-cert.pem
+│   │       │       │   │   └── tlscacerts
+│   │       │       │   │       └── tlsca.org1.example.com-cert.pem
+│   │       │       │   └── tls
+│   │       │       │       ├── ca.crt
+│   │       │       │       ├── client.crt
+│   │       │       │       └── client.key
+│   │       │       └── User1@org1.example.com
+│   │       │           ├── msp
+│   │       │           │   ├── admincerts
+│   │       │           │   ├── cacerts
+│   │       │           │   │   └── ca.org1.example.com-cert.pem
+│   │       │           │   ├── config.yaml
+│   │       │           │   ├── keystore
+│   │       │           │   │   └── priv_sk
+│   │       │           │   ├── signcerts
+│   │       │           │   │   └── User1@org1.example.com-cert.pem
+│   │       │           │   └── tlscacerts
+│   │       │           │       └── tlsca.org1.example.com-cert.pem
+│   │       │           └── tls
+│   │       │               ├── ca.crt
+│   │       │               ├── client.crt
+│   │       │               └── client.key
+│   │       └── org2.example.com
+│   │           ├── ca
+│   │           │   ├── ca.org2.example.com-cert.pem
+│   │           │   └── priv_sk
+│   │           ├── msp
+│   │           │   ├── admincerts
+│   │           │   ├── cacerts
+│   │           │   │   └── ca.org2.example.com-cert.pem
+│   │           │   ├── config.yaml
+│   │           │   └── tlscacerts
+│   │           │       └── tlsca.org2.example.com-cert.pem
+│   │           ├── peers
+│   │           │   └── peer0.org2.example.com
+│   │           │       ├── msp
+│   │           │       │   ├── admincerts
+│   │           │       │   ├── cacerts
+│   │           │       │   │   └── ca.org2.example.com-cert.pem
+│   │           │       │   ├── config.yaml
+│   │           │       │   ├── keystore
+│   │           │       │   │   └── priv_sk
+│   │           │       │   ├── signcerts
+│   │           │       │   │   └── peer0.org2.example.com-cert.pem
+│   │           │       │   └── tlscacerts
+│   │           │       │       └── tlsca.org2.example.com-cert.pem
+│   │           │       └── tls
+│   │           │           ├── ca.crt
+│   │           │           ├── server.crt
+│   │           │           └── server.key
+│   │           ├── tlsca
+│   │           │   ├── priv_sk
+│   │           │   └── tlsca.org2.example.com-cert.pem
+│   │           └── users
+│   │               ├── Admin@org2.example.com
+│   │               │   ├── msp
+│   │               │   │   ├── admincerts
+│   │               │   │   ├── cacerts
+│   │               │   │   │   └── ca.org2.example.com-cert.pem
+│   │               │   │   ├── config.yaml
+│   │               │   │   ├── keystore
+│   │               │   │   │   └── priv_sk
+│   │               │   │   ├── signcerts
+│   │               │   │   │   └── Admin@org2.example.com-cert.pem
+│   │               │   │   └── tlscacerts
+│   │               │   │       └── tlsca.org2.example.com-cert.pem
+│   │               │   └── tls
+│   │               │       ├── ca.crt
+│   │               │       ├── client.crt
+│   │               │       └── client.key
+│   │               └── User1@org2.example.com
+│   │                   ├── msp
+│   │                   │   ├── admincerts
+│   │                   │   ├── cacerts
+│   │                   │   │   └── ca.org2.example.com-cert.pem
+│   │                   │   ├── config.yaml
+│   │                   │   ├── keystore
+│   │                   │   │   └── priv_sk
+│   │                   │   ├── signcerts
+│   │                   │   │   └── User1@org2.example.com-cert.pem
+│   │                   │   └── tlscacerts
+│   │                   │       └── tlsca.org2.example.com-cert.pem
+│   │                   └── tls
+│   │                       ├── ca.crt
+│   │                       ├── client.crt
+│   │                       └── client.key
+│   ├── scripts
+│   │   └── setup.sh
+│   └── system-genesis-block
+├── contracts
+│   ├── .gitkeep
+│   ├── IUserVerification.sol
+│   ├── ServicesAndRequest.sol
+│   ├── UserRequest.sol
+│   └── UserVerification.sol
+├── docker
+│   ├── .dockerignore
+│   ├── app
+│   │   ├── Dockerfile
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   ├── app.py
+│   │   ├── auth.py
+│   │   ├── blockchain.py
+│   │   ├── config.py
+│   │   ├── db.py
+│   │   ├── flaskr
+│   │   │   ├── __pycache__
+│   │   │   │   └── __init__.cpython-310.pyc
+│   │   │   ├── static
+│   │   │   │   └── style.css
+│   │   │   └── templates
+│   │   │       ├── auth
+│   │   │       │   ├── login.html
+│   │   │       │   └── register.html
+│   │   │       ├── base.html
+│   │   │       └── user
+│   │   │           └── dashboard.html
+│   │   ├── pyproject.toml
+│   │   ├── requirements.txt
+│   │   ├── schema.sql
+│   │   ├── user_request.py
+│   │   └── user_verification.py
+│   └── docker-compose.yaml
+├── migrations
+│   ├── .gitkeep
+│   ├── 1_deploy_verification.js
+│   ├── 2_deploy_services.js
+│   └── 3_deploy_requests.js
+├── package-lock.json
+├── package.json
+├── scripts
+│   └── deploy.sh
+├── structure.txt
+├── test
+│   └── .gitkeep
+└── truffle-config.js
+
+534 directories, 1228 files

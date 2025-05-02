@@ -2,3 +2,4 @@ node_modules
 __pycache__
 docker/app/__pycache__
 .env
+ignore

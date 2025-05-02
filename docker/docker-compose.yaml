@@ -19,7 +19,7 @@ services:
     environment:
       - DATABASE_URL=postgresql://flaskuser:flaskpass@db:5432/flaskdb
       - FLASK_APP=app:create_app
-      # - WEB3_PROVIDER_URL=http://ethereum:8545
+       - WEB3_PROVIDER_URL=https://sepolia.infura.io/v3/ab433592545b48a7967c4d4a5b22036c
     depends_on:
       - db
       - ethereum
